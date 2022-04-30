@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_picking_form_inherit">
+        <field name="name">sale.template.form.vehicle_no</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr= "//form/sheet/notebook/page[@name='extra']/group/group/field[@name='company_id']" position ="after">
+                <field name="vehicle_number"/>
+                <field name="so_id"/>
+            </xpath>
+            
+        </field>
+    </record>
+
+</odoo>

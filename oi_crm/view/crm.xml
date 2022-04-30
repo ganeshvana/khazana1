@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_form_inherit_lead" model = "ir.ui.view" >
+        <field name="name">crm.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref = "crm.crm_lead_view_form"/>
+        <field name="arch" type="xml" >
+        	<xpath expr= "//div[@name='button_box']" position ="inside">
+        		<button type="object" name="need_analysis_form" class="oe_stat_button" icon="fa-check" string="Need Analysis"/>
+        		<button type="object" name="action_view_survey_answer" class="oe_stat_button" icon="fa-check" string="Need Analysis Inputs"/>
+        		 <button type="object" name="action_view_project_ids" class="oe_stat_button" icon="fa-puzzle-piece" string="Projects"/>
+        		 <button type="object" name="redirect_to_website" class="oe_stat_button" icon="fa-globe" string="Go to Website"/>
+            </xpath>
+            <!-- <xpath expr= "//field[@name='source_id']" position ="replace">
+            </xpath> -->
+            <xpath expr= "//page/group/group[@name='categorization']/field[@name='source_id']" position ="replace">
+            </xpath>
+            <!-- <xpath expr= "//page[@name='lead']/group/group/field[@name='source_id']" position ="replace">
+            </xpath> -->
+            <xpath expr= "/form/sheet/group/group[@name='opportunity_partner']/div/field[@name='phone']" position ="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>
+            <xpath expr= "//group[@name='lead_info']/div/field[@name='mobile']" position ="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>
+            <xpath expr= "//group[@name='lead_info']" position ="inside">
+            	<field name="source_id"/>
+            	<field name="interested_in"/>
+            </xpath>
+            <xpath expr= "//field[@name='tag_ids']" position ="after">
+            	<field name="interested_in"/>
+            </xpath>
+            <xpath expr= "//group[@name='opportunity_partner']" position ="inside">
+            	<field name="source_id"/>
+            </xpath>
+            <xpath expr= "//field[@id='mobile_page_lead']" position ="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>
+             <xpath expr= "//group[@name='lead_info']/div/field[@name='phone']" position ="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>
+            <!-- <xpath expr= "//field[@name='phone']" position ="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>            
+            <xpath expr= "//field[@name='mobile']" position ="after">
+                <field name="source_id"/>
+            </xpath> -->
+            <xpath expr= "//field[@name='partner_id']" position ="replace">
+                <field name="partner_id" string="Customer"
+                       widget="res_partner_many2one"
+                       context="{'default_name': contact_name, 'default_street': street, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_function': function, 'default_phone': phone, 'default_mobile': mobile, 'default_email': email_from, 'default_user_id': user_id, 'default_team_id': team_id, 'default_website': website, 'show_vat': True}"
+                groups="base.group_no_one" required="1"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="crm_case_tree_view_oppor_inherit" model = "ir.ui.view" >
+        <field name="name">crm.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref = "crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml" >
+        	<xpath expr= "//field[@name='expected_revenue']" position ="after">
+                <field name="probability"/>
+                <field name="sale_amount_total" string="Sale Amount"/>
+                <field name="interested_in"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="view_crm_case_leads_filter_inherit" model = "ir.ui.view" >
+        <field name="name">crm.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref = "crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml" >
+        	<xpath expr= "//field[@name='activity_state']" position ="after">
+                <field name="interested_in"/>
+            </xpath>
+            <xpath expr= "//group" position ="inside">
+                <filter string="Interested In" name="interested_in" context="{'group_by':'interested_in'}"/>
+            </xpath>
+        </field>
+    </record>
+    
+    
+    <record id="crm_case_kanban_view_leads_inherit" model = "ir.ui.view" >
+        <field name="name">crm.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref = "crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml" >
+        	<xpath expr="//div[hasclass('o_kanban_record_subtitle')]" position="replace">
+        		<div class="o_kanban_record_subtitle">
+                     <t t-if="record.expected_revenue.raw_value">
+                         <field name="expected_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/>
+                         at <field name="probability" widget="monetary" options="{'currency_field': 'company_currency'}"/> %
+                         <span t-if="record.recurring_revenue and record.recurring_revenue.raw_value"> + </span>
+                     </t>
+                     <t t-if="record.recurring_revenue and record.recurring_revenue.raw_value">
+                         <field name="recurring_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/>
+                         <field name="recurring_plan"/>
+                     </t>
+                     <div>Sale Amount <field name="sale_amount_total" widget="monetary" options="{'currency_field': 'company_currency'}"/></div>
+                 </div>
+        	</xpath>
+        </field>
+    </record>
+    
+    
+    <record id="view_inherit_partner_field" model="ir.ui.view">
+         <field name="name">view.inherit.partner.field</field>
+         <field name="model">res.partner</field>
+         <field name="inherit_id" ref="base.view_partner_form"/>
+         <field name="arch" type="xml">
+             <xpath expr="//field[@name='ref']" position="replace">
+                 <field name="ref" readonly="1"/>  
+                 <!-- <field name="anniversary"/>            -->         
+             </xpath>
+         </field>
+     </record>
+     
+     <record id="view_edit_project_field" model="ir.ui.view">
+         <field name="name">view.inherit.project.project.field</field>
+         <field name="model">project.project</field>
+         <field name="inherit_id" ref="project.edit_project"/>
+         <field name="arch" type="xml">
+             <xpath expr= "//div[@name='button_box']" position ="inside">
+        		<button type="object" name="action_view_survey_answer" class="oe_stat_button" icon="fa-check" string="Need Analysis Inputs"/>
+            </xpath>
+         </field>
+     </record>
+     
+     <record id="view_picking_form_inherit_purchase1" model="ir.ui.view">
+		<field name="name">stock.picking.form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='origin']" position="after">	
+				<field name="container" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" readonly="1"/>				
+				<field name="eta" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" readonly="1"/>	
+				<field name="import_stage" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+			</xpath>		
+		</field>
+	</record>  
+	
+	<record id="view_picking_tree_inherit_purchase1" model="ir.ui.view">
+		<field name="name">stock.picking.form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.vpicktree" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='backorder_id']" position="after">	
+				<field name="import_stage" optional="hide"/>
+			</xpath>		
+		</field>
+	</record> 
+	
+	<record id="view_picking_internal_search_purchase1" model="ir.ui.view">
+		<field name="name">stock.picking.form</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_internal_search" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='picking_type_id']" position="after">	
+				<field name="container"/>				
+				<field name="eta"/>	
+				<field name="import_stage"/>
+			</xpath>		
+			<xpath expr="//group" position="inside">	
+				<filter string="Container" name="container" domain="[]" context="{'group_by': 'container'}"/>
+				<filter string="ETA" name="eta" domain="[]" context="{'group_by': 'eta'}"/>
+				<filter string="Import Stage" name="import_stage" domain="[]" context="{'group_by': 'import_stage'}"/>
+			</xpath>		
+		</field>
+	</record>  
+	
+	<record id="view_view_res_partner_filter_search_name" model="ir.ui.view">
+		<field name="name">res.partner.form</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_res_partner_filter" />
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="replace">	
+				<field name="name" filter_domain="['|', '|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self),('partner_name', 'ilike', self)]"/>
+			</xpath>						
+		</field>
+	</record>   
+	
+	<record id="view_backorder_confirmation_inherit_purchase1" model="ir.ui.view">
+		<field name="name">stock.backorder.confirmation.form</field>
+		<field name="model">stock.backorder.confirmation</field>
+		<field name="inherit_id" ref="stock.view_backorder_confirmation" />
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='process_cancel_backorder']" position="replace">	
+				<button name="process_cancel_backorder" string="No Backorder" type="object" class="btn-primary" attrs="{'invisible': [('show_transfers', '=', True)]}" data-hotkey="w" groups="oi_crm.group_no_backorder_creation"/>
+			</xpath>		
+		</field>
+	</record>   
+	
+	<template id="website_sale.payment" name="Payment">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop - Select Payment Acquirer</t>
+            <t t-set="no_footer" t-value="1"/>
+
+            <div id="wrap">
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class='col-12'>
+                            <t t-call="website_sale.wizard_checkout">
+                                <t t-set="step" t-value="40" />
+                            </t>
+                        </div>
+                        <div class="col-12" t-if="errors">
+                            <t t-foreach="errors" t-as="error">
+                                <div class="alert alert-danger" t-if="error" role="alert">
+                                    <h4>
+                                        <t t-esc="error[0]" />
+                                    </h4>
+                                    <t t-esc="error[1]" />
+                                </div>
+                            </t>
+                        </div>
+                        <div class="col-12 col-xl-auto order-xl-2">
+                            <t t-call="website_sale.cart_summary"/>
+                        </div>
+                        <div class="col-12 col-xl order-xl-1 oe_cart">
+                            <div id='address_on_payment'>
+                                <t t-call="website_sale.address_on_payment"/>
+                            </div>
+
+                            <div class="oe_structure clearfix mt-3" id="oe_structure_website_sale_payment_1"/>
+
+                            <t t-if="website_sale_order.amount_total">
+                                <div t-if="acquirers or tokens" id="payment_method" class="mt-3">
+                                    <h3 class="mb24">Pay with </h3>
+                                    <t t-call="payment.checkout">
+                                        <t t-set="footer_template_id" t-value="'website_sale.payment_footer'"/>
+                                        <t t-set="submit_button_label" t-value="'Create Quotation'"/>
+                                    </t>
+                                </div>
+                                <div t-else="" class="alert alert-warning">
+                                    <strong>No suitable payment option could be found.</strong><br/>
+                                    If you believe that it is an error, please contact the website administrator.
+                                </div>
+                            </t>
+
+                            <div t-if="not acquirers" class="mt-2">
+                                <a role="button" class="btn-link"
+                                    groups="base.group_system"
+                                    t-attf-href="/web#action=#{payment_action_id}">
+                                        <i class="fa fa-arrow-right"></i> Add payment acquirers
+                                </a>
+                            </div>
+                            <div class="js_payment mt-3" t-if="not website_sale_order.amount_total" id="payment_method" name="o_website_sale_free_cart">
+                                <form target="_self" action="/shop/payment/validate" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                    <t t-call="website_sale.payment_footer">
+                                        <t t-set="submit_button_label" t-value="'Confirm Order'"/>
+                                    </t>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure" id="oe_structure_website_sale_payment_2"/>
+            </div>
+        </t>
+    </template>
+	
+	<!-- <record id="view_mrp_production_backorder_form_purchase1" model="ir.ui.view">
+		<field name="name">mrp.production.backorder.form</field>
+		<field name="model">mrp.production.backorder</field>
+		<field name="inherit_id" ref="mrp.view_mrp_production_backorder_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_close_mo']" position="replace">	
+				<button name="action_close_mo" type="object" string="No Backorder" attrs="{'invisible': [('show_backorder_lines', '!=', False)]}" data-hotkey="x" groups="oi_crm.group_no_backorder_creation"/>
+			</xpath>		
+		</field>
+	</record>  -->
+    
+        
+                
+</odoo>

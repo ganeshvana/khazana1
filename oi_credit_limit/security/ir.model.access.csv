@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oi_credit_limit_order_qty_user,access_oi_credit_limit_order_qty,model_credit_limit_warning,base.group_user,1,1,1,1

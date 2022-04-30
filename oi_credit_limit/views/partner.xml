@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="view_inherit_partner_field" model="ir.ui.view">
+            <field name="name">view.inherit.partner.field</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_account_position_id']" position="after">
+                    <field name="credit_limit_applicable" groups="oi_credit_limit.group_credit_limit_applicable"/>
+                    <field name="credit_limit" groups="oi_credit_limit.group_credit_limit_applicable" attrs="{'invisible':[('credit_limit_applicable','=', False)]}"/>
+
+                    <field name="used_credit_limit" groups="oi_credit_limit.group_credit_limit_applicable" attrs="{'invisible':[('credit_limit_applicable','=', False)]}"/>
+                    <field name="remaining_creditlimit" groups="oi_credit_limit.group_credit_limit_applicable" attrs="{'invisible':[('credit_limit_applicable','=', False)]}"/>
+
+                    
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
