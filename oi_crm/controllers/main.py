@@ -25,8 +25,8 @@ _logger = logging.getLogger(__name__)
 import hashlib
 from odoo import http, models, _
 from werkzeug.urls import url_encode, url_join
-import MySQLdb
-import MySQLdb.cursors
+# import MySQLdb
+# import MySQLdb.cursors
 
 class WebsiteSale(http.Controller):
     
