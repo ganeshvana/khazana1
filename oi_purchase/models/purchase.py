@@ -54,7 +54,7 @@ class Purchase(models.Model):
             url = 'https://ganeshvana-khazana1-modular-4805725.dev.odoo.com'
             common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
             db = self.env["ir.config_parameter"].sudo().get_param("module.db")
-            db = 'ganeshvana-khazana-april-modular-4577685'
+            db = 'ganeshvana-khazana1-modular-4805725'
             uid = self.env["ir.config_parameter"].sudo().get_param("module.uid")
             # uid = 2
             password = self.env["ir.config_parameter"].sudo().get_param("module.password")
