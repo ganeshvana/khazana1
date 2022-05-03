@@ -11,6 +11,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     discount = fields.Float(string="Discount (%)", digits="Discount")
+    apply_discount = fields.Boolean('Apply Discount',default=True)
 
     @api.depends("discount")
     def compute_discount(self):
