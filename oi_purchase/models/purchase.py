@@ -56,9 +56,9 @@ class Purchase(models.Model):
             db = self.env["ir.config_parameter"].sudo().get_param("module.db")
             db = 'ganeshvana-khazana1-modular-4805725'
             uid = self.env["ir.config_parameter"].sudo().get_param("module.uid")
-            # uid = 2
+            uid = 2
             password = self.env["ir.config_parameter"].sudo().get_param("module.password")
-            # password = 'admin'
+            password = 'admin'
             modells = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
             customer = modells.execute_kw(db, uid, password, 'res.partner', 'search', [[['name', '=', 'Khazana']]])
             sale = modells.execute_kw(db, uid, password, 'sale.order', 'create', [{'partner_id': customer[0],'client_order_ref': self.name}])
