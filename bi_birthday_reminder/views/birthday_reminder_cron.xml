@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+   
+    <record model="ir.cron" id="availability_create_cron">
+		<field name="name">Birthday Reminder </field>
+		<field name="model_id" ref="base.model_res_partner"/>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+		<field name="state">code</field>
+		<field name="code">model._cron_birthday_reminder()</field>
+	</record>
+	
+	<record model="ir.cron" id="anniversary_cron">
+		<field name="name">Anniversary Reminder </field>
+		<field name="model_id" ref="base.model_res_partner"/>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+		<field name="state">code</field>
+		<field name="code">model._cron_anniversary_reminder()</field>
+	</record>
+	
+	<record model="ir.cron" id="anniversary_cron1">
+		<field name="name">Anniversary Reminder for Salesperson</field>
+		<field name="model_id" ref="base.model_res_partner"/>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+		<field name="state">code</field>
+		<field name="code">model._cron_anniversary_reminder_saleperson()</field>
+	</record>
+	
+	<record model="ir.cron" id="birthday_cron">
+		<field name="name">Birthday Reminder for Salesperson</field>
+		<field name="model_id" ref="base.model_res_partner"/>
+		<field name="interval_number">1</field>
+		<field name="interval_type">days</field>
+		<field name="numbercall">-1</field>
+		<field name="doall" eval="False"/>
+		<field name="state">code</field>
+		<field name="code">model._cron_birthday_reminder_saleperson()</field>
+	</record>
+			
+</odoo>

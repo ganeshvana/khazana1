@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_type_tree_view" model="ir.ui.view">
+			<field name="name">purchase.order.type.tree</field>
+			<field name="model">purchase.order.type</field>
+			<field name="arch" type="xml">
+				<tree string="name">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="purchase_order_type_form_view" model="ir.ui.view">
+			<field name="name">purchase.order.type.form</field>
+			<field name="model">purchase.order.type</field>
+			<field name="arch" type="xml">
+				<form string="name">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" required="1"/>
+								<field name="type" required="1"/>
+							</group>
+							<group>
+								<!-- <field name="company_id" />
+								<field name="from_email" />
+								<field name="to_email" /> -->
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_purchase_order_type" model="ir.actions.act_window">
+			<field name="name">Purchase Order Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order.type</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Create the first record
+				</p>
+			</field>
+		</record>
+		
+		<menuitem id="purchase_order_type_menu"
+			name="Purchase Order Type" sequence="31" parent="purchase.menu_purchase_config"
+			action="action_purchase_order_type" />
+    </data>
+</odoo>

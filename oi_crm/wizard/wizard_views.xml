@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_stock_picking_bulk_update" model="ir.ui.view">
+            <field name="name">stock.picking.bulk.update.view</field>
+            <field name="model">stock.picking.bulk.update</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                	<group>
+                		<group>
+                			<field name="picking_ids" widget="many2many_tags" invisible="1"/>
+                		</group>
+                		<group></group>
+                	</group>
+                	<group>
+                		<group>
+                			<field name="container"/>
+                		</group>
+                		<group>
+                			<field name="eta"/>
+                		</group>
+                	</group>
+                    
+                    <footer>
+                        <button name="bulk_update_picking" string="Update" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record> 
+       
+        
+     
+		
+		<record id="stock_picking_bulk_update_action1" model="ir.actions.act_window">
+            <field name="name">Bulk Update</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.bulk.update</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_stock_picking" />
+            <field name="binding_view_types">list</field>
+        </record>
+        
+        
+     
+            
+    </data>
+</odoo>

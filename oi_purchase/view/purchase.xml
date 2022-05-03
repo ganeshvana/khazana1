@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <record id="view_order_form_inherit_purchase" model="ir.ui.view">
+			<field name="name">purchase.order.form</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">				
+				<xpath expr="/form/sheet/group/group" position="inside">
+					<field name="purchase_order_type_id" required="1"/>
+					<field name="type" invisible="1"/>
+				</xpath>
+				
+			</field>
+		</record>  
+		
+		<record id="model_quality_check_pass" model="ir.actions.server">
+            <field name="name">Pass</field>
+            <field name="model_id" ref="quality.model_quality_check"/>
+            <field name="binding_model_id" ref="quality.model_quality_check"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.do_pass()</field>
+        </record>
+        
+        <record id="model_quality_check_fail" model="ir.actions.server">
+            <field name="name">Fail</field>
+            <field name="model_id" ref="quality.model_quality_check"/>
+            <field name="binding_model_id" ref="quality.model_quality_check"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.do_fail()</field>
+        </record>
+		
+		
+<data noupdate="1">
+	<!-- <record forcecreate="True" id="ir_cron_date_of_issue_reminder" model="ir.cron">
+         <field name="name">Date of issue of material Reminder</field>
+         <field eval="True" name="active"/>
+         <field name="user_id" ref="base.user_root"/>
+         <field name="interval_number">1</field>
+         <field name="interval_type">days</field>
+         <field name="numbercall">-1</field>
+         <field eval="False" name="doall"/>
+         <field name="model_id" ref="model_mrp_production" />
+         <field name="code">model.send_date_of_issue()</field>
+     </record>
+
+	<record id="mail_template_send_date_of_issue_reminder" model="mail.template">
+       <field name="name">Date of issue of material Reminder</field>
+       <field name="model_id" ref="model_mrp_production"/>
+       <field name="email_from"></field>
+       <field name="subject">Date of issue of material Reminder</field>
+       <field name="email_to"></field>
+       <field name="body_html" type="html">
+           <p>Hello, <br/> <t t-esc="object.name"/> is in queue for manufacturing for tomorrow.</p>
+       </field>
+   </record> -->
+   
+   <record id="sequence_appliance_purchase" model="ir.sequence">
+       <field name="name">Appliance Purchase</field>
+       <field name="code">appliance.purchase</field>
+       <field name="prefix">APO</field>
+       <field name="padding">3 </field>
+       <field name="company_id" eval="False"/>
+   </record>
+   
+   <record id="sequence_imports_purchase" model="ir.sequence">
+       <field name="name">Imports Purchase</field>
+       <field name="code">imports.purchase</field>
+       <field name="prefix">IPO</field>
+       <field name="padding">3 </field>
+   </record>
+   
+   <record id="sequence_domestic_purchase" model="ir.sequence">
+       <field name="name">Domestic Purchase</field>
+       <field name="code">domestic.purchase</field>
+       <field name="prefix">DPO</field>
+       <field name="padding">3 </field>
+   </record>
+   
+   <record id="sequence_consumbles_purchase" model="ir.sequence">
+       <field name="name">Consumbles Purchase</field>
+       <field name="code">consumbles.purchase</field>
+       <field name="prefix">CPO</field>
+       <field name="padding">3 </field>
+   </record>
+</data> 
+</odoo>

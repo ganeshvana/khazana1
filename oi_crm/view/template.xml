@@ -1,0 +1,105 @@
+<odoo>
+	<data noupdate="1">
+		<record id="vehicle_request" model="ir.sequence">
+            <field name="name">customer.code.seq</field>
+            <field name="code">customer.code.seq</field>
+            <field name="active">True</field>
+            <field name="prefix">CU</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="padding">4</field>
+        </record>
+        
+        <record id="product_barcode_seq" model="ir.sequence">
+            <field name="name">product.barcode.seq</field>
+            <field name="code">product.barcode.seq</field>
+            <field name="active">True</field>
+            <field name="prefix">BC</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="padding">4</field>
+        </record>
+	
+		<record id="mail_template_crm_stage_change" model="mail.template">
+            <field name="name">CRM Stage Change</field>
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="email_from"></field>
+            <field name="subject">CRM Stage Change</field>
+            <field name="email_to"></field>
+            <field name="body_html" type="html">
+                <p>
+                Stage for <t t-esc="object.name"/> changed to <t t-esc="object.stage_id.name"/>.
+                </p>
+            </field>
+        </record>
+        
+        <record id="mail_template_customer_creation" model="mail.template">
+            <field name="name">New Customer Notification</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="email_from"></field>
+            <field name="subject">New Customer Notification</field>
+            <field name="email_to">${object.email}</field>
+            <field name="body_html" type="html">
+                <p>
+                Welcome, <t t-esc="object.name"/>.
+                </p>
+            </field>
+        </record>
+        
+        <record id="mail_template_survey_assigned" model="mail.template">
+            <field name="name">Survey Assign to Engineers</field>
+            <field name="model_id" ref="model_project_task"/>
+            <field name="email_from"></field>
+            <field name="subject">Survey is assigned to the task {{ object.name }} </field>
+            <field name="body_html" type="html">
+                <p>
+                Hi, <br/> You have a survey <t t-esc="object.survey_id.title"/> to finish, in the task <t t-esc="object.name"/>
+                </p>
+            </field>
+        </record>
+        
+        <record id="mail_template_send_eta" model="mail.template">
+            <field name="name">Picking - Send ETA Change</field>
+            <field name="model_id" ref="model_stock_picking_bulk_update"/>
+            <field name="email_from"></field>
+            <field name="subject">ETA Changed</field>
+            <field name="body_html" type="html">
+                <p>
+                Hi, <br/> ETA changed for following Receipts as <t t-esc="object.eta"/>.
+                <br/>
+                <t t-foreach="object.picking_ids" t-as="line">
+                	<span t-field="line.name" /><br/>
+                </t>
+                </p>
+            </field>
+        </record>
+        
+        <record id="mail_template_send_receipt_validate" model="mail.template">
+            <field name="name">Receipt - Validate</field>
+            <field name="model_id" ref="model_stock_picking"/>
+            <field name="email_from"></field>
+            <field name="subject">Products Received for {{ object.name }}  </field>
+            <field name="body_html" type="html">
+                <p>
+                Hi, <br/> Following products received against the receipt <t t-esc="object.name"/>.
+                <br/>
+                <t t-foreach="object.move_line_nosuggest_ids" t-as="line">
+                	<span t-field="line.product_id.name"/> - <span t-field="line.qty_done"/> <span t-field="line.product_uom_id.name"/> <br/>
+                </t>
+                </p>
+            </field>
+        </record>
+        
+        <!-- <record forcecreate="True" id="website_availablity_check" model="ir.cron">
+	         <field name="name">Archive unavailable products</field>
+	         <field eval="True" name="active"/>
+	         <field name="user_id" ref="base.user_root"/>
+	         <field name="interval_number">1</field>
+	         <field name="interval_type">days</field>
+	         <field name="numbercall">-1</field>
+	         <field eval="False" name="doall"/>
+	         <field name="model_id" ref="model_product_template" />
+	         <field name="code">model.check_stock()</field>
+	     </record> -->
+	</data>
+</odoo>

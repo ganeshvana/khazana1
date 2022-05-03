@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit" model="ir.ui.view">
+	    <field name="name">helpdesk.ticket.form.inherit</field>
+	    <field name="model">helpdesk.ticket</field>
+	    <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//field[@name='email_cc']" position="after">
+	    		<field name="deadline" required="1"/>
+	    	</xpath>
+	    </field>
+	</record>
+	
+	<!-- <record id="product_template_form_view_inherit" model="ir.ui.view">
+	    <field name="name">product.template.form.inherit</field>
+	    <field name="model">product.template</field>
+	    <field name="inherit_id" ref="website_sale_stock.product_template_form_view_inherit_website_sale_stock"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//field[@name='out_of_stock_message']" position="replace">
+	    		<field name="out_of_stock_message" attrs="{'invisible': [('type', 'in', ['service', 'consu'])],'readonly':[('intransit', '=', True)]}" options="{'height': 150}"/>
+	    		<field name="intransit"/>
+	    	</xpath>
+	    </field>
+	</record> -->
+	
+	<record id="product_template_form_view_inherit_cost" model="ir.ui.view">
+	    <field name="name">product.template.form.inherit</field>
+	    <field name="model">product.template</field>
+	    <field name="inherit_id" ref="product.product_template_form_view"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//label[@for='list_price']" position="replace">
+	    		<label for="list_price" class="mt-1" groups="oi_crm.group_product_cost"/>
+	    	</xpath>
+	    	<xpath expr="//div[@name='pricing']" position="replace">
+	    		<div name="pricing" groups="oi_crm.group_product_cost">
+                      <field name="list_price" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                    </div>
+	    	</xpath>
+	    	<xpath expr="//label[@for='standard_price']" position="replace">
+	    		<label for="standard_price" groups="oi_crm.group_product_cost" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+	    	</xpath>
+	    	<xpath expr="//div[@name='standard_price_uom']" position="replace">
+	    		<div name="standard_price_uom" groups="oi_crm.group_product_cost" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}" class="o_row">
+                                        <field name="standard_price" widget="monetary" options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
+                                        <span groups="uom.group_uom" class="oe_read_only">per
+                                            <field name="uom_name"/>
+                                        </span>
+                                    </div>
+	    	</xpath>
+	    </field>
+	</record>
+	
+	<record id="product_template_form_view_inherit_var" model="ir.ui.view">
+	    <field name="name">product.template.form.inherit</field>
+	    <field name="model">product.template</field>
+	    <field name="inherit_id" ref="product.product_template_only_form_view"/>
+	    <field name="arch" type="xml">
+	    	<!-- <xpath expr="//field[@name='attribute_line_ids']" position="after">
+	    		<group>
+	    			<group>
+	    				<field name="create_combination_variant"/>
+	    			</group>
+	    			<group></group>
+	    		</group>
+	    	</xpath> -->
+	    	
+	    	<field name="barcode" position="after">
+	    		<field name="container_no"/>
+	    	</field>
+	    	
+	    </field>
+	</record>
+	
+	<record id="product_template_form_view_inherit_costi" model="ir.ui.view">
+	    <field name="name">product.template.form.inherit</field>
+	    <field name="model">product.template</field>
+	    <field name="inherit_id" ref="product.product_template_tree_view"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//field[@name='standard_price']" position="replace">
+	    		<field name="standard_price" widget="monetary" options="{'currency_field': 'cost_currency_id'}" optional="show" readonly="1" groups="oi_crm.group_product_cost"/>
+	    	</xpath>
+	    </field>
+	</record>
+	
+	
+	
+	<record id="view_task_form2_inherit" model="ir.ui.view">
+	    <field name="name">project.task.form.inherit</field>
+	    <field name="model">project.task</field>
+	    <field name="inherit_id" ref="project.view_task_form2"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr= "//div[@name='button_box']" position ="inside">
+        		<button type="object" name="action_view_survey_answer" class="oe_stat_button" icon="fa-check" string="Need Analysis Inputs"/>
+            </xpath>
+	    	<xpath expr="//field[@name='parent_id']" position="after">
+	    		<field name="mom"/>
+	    		<field name="survey"/>
+	    		<field name="survey_id" attrs="{'required':[('survey', '=',True)]}"/>
+	    	</xpath>
+	    </field>
+	</record>
+	
+</odoo>
