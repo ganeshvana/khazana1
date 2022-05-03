@@ -139,6 +139,7 @@ class Picking(models.Model):
     def button_validate(self):
         res = super(Picking,self).button_validate()
         categ = self.env['product.public.category'].search([('name', '=', 'In Transit')], limit=1)
+        stockcateg = self.env['product.public.category'].search([('name', '=', 'In Stock')], limit=1)
         for rec in self:
             if rec.picking_type_code == 'incoming':
                 if rec.move_ids_without_package:
@@ -150,7 +151,7 @@ class Picking(models.Model):
                                 pline.product_id.intransit = False
                                 if categ:
                                     if categ.id in pline.product_id.public_categ_ids.ids:
-                                        pline.product_id.public_categ_ids = [(3,categ.id)]
+                                        pline.product_id.public_categ_ids = [(6, 0,[stockcateg.id])]
                                 pline.product_id.product_tmpl_id.intransit = False
                                 pline.product_id.product_tmpl_id.allow_out_of_stock_order = False
                                 pline.product_id.out_of_stock_message = ''
