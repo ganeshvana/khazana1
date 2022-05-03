@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">    
             	<xpath expr="//header" position="inside">
-            		<button name="open_cart_detail" type="object" string="Open Cart" attrs="{'invisible': ['|', ('website_id', '=', False),('state', 'in', ['draft','sent'])]}"/>
+            		<button name="open_cart_detail" type="object" string="Open Cart" attrs="{'invisible': ['|', ('website_id', '=', False),('state', 'not in', ['draft','sent'])]}"/>
             	</xpath>        	
             	<xpath expr="//field[@name='payment_term_id']" position="attributes">
             		<attribute name="required">True</attribute>
