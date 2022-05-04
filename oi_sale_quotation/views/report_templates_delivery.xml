@@ -2,8 +2,16 @@
     <data>
 <template id="sale_report_external_layout">
             <div t-attf-class="header" t-att-style="report_header_style">
-            <table width="100%">
-                
+            <table  style="border-style: solid;border-width:1px;" width="100%">
+                <tr  style="border-style: solid;border-width:1px " width="100%">
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    </td>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden"><strong><h4>Delivery Challan</h4></strong>
+                    </td>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
+                    </td>
+                </tr>
+
             </table>
             </div>
             <div t-attf-class="article o_report_layout_standard " t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
@@ -40,7 +48,7 @@
             
             <table  style="border-style: solid;border-width:1px;" width="100%">
                 <tr  style="border-style: solid;border-width:1px " width="100%">
-                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
                     </td>
                     <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden"><strong><h4>Delivery Challan</h4></strong>
                     </td>
@@ -52,14 +60,14 @@
 
 
 
-    <table style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
+    <table style="border-style: solid;border-width:1px;" width="100%">
              <tr style="border-style: solid;border-width:1px;" width="100%">
                     <th rowspan="3" style="border-style: solid;border-width:1px;font-size:12px" width="50%">
                         <strong><span  t-field="doc.company_id.name"/></strong><br/>
                         <span  t-field="doc.company_id.street"/>,
                               <span t-field="doc.company_id.street2"/><br/>
                               <span t-field="doc.company_id.city"/>,<span  t-field="doc.company_id.zip"/>,<br/>
-                              GST IN/UIN:<span  t-field="doc.company_id.vat"/>,<span  t-field="doc.company_id.country_id"/>
+                              GST IN/UIN:&#160;<span  t-field="doc.company_id.vat"/>,<span  t-field="doc.company_id.country_id"/>
 
                     </th>
                 <td style="border-style: solid;border-width:1px;font-size:12px" width="25%">Date</td>
@@ -83,6 +91,7 @@
                               <span t-field="doc.partner_id.street2"/><br/>
                               <span t-field="doc.partner_id.state_id"/><br/>
                               <span t-field="doc.partner_id.city"/>,<span  t-field="doc.partner_id.zip"/>,<br/>
+                              State Name:&#160;<span t-field="doc.partner_id.state_id"/>,<br/>
                               <span  t-field="doc.partner_id.country_id"/>
                     </th>
                     <td style="border-style: solid;border-width:1px;font-size:12px" width="25%"> E-Way Bill No</td>
@@ -91,11 +100,11 @@
 
               <tr style="border-style: solid;border-width:1px;" width="50%">
                     <td style="border-style: solid;border-width:1px;font-size:12px" width="25%"> Delivery By</td>
-                    <td style="border-style: solid;border-width:1px;font-size:12px" width="25%"></td>
+                    <td style="border-style: solid;border-width:1px;font-size:12px" width="25%"><span t-field="doc.user_id"/></td>
                   </tr>
 
-                  <tr style="border-style: solid;border-width:1px;font-size:12px" width="50%">
-                    <td style="border-style: solid;border-width:1px;font-size:12px" width="25%">Terms Of Delivery</td>
+                  <tr  style="border-style: solid;border-width:1px;font-size:12px" width="50%">
+                    <td  style="border-style: solid;border-width:1px;font-size:12px;border-right:hidden" width="25%">Terms Of Delivery:&#160;<span t-field="doc.note"/></td>
                     <td style="border-style: solid;border-width:1px;" width="25%"></td>
                 
               </tr>
@@ -118,13 +127,24 @@
                  <tr>
                     <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><span t-esc="package_index + 1"/></td>
                     <td style="border-style: solid;border-width:1px;text-align:left;font-size:12px" width="30%">
-                       <span t-field="package.product_id"/><br/>
-                       <t t-if="package.product_id.product_template_variant_value_ids">
-                        <t t-foreach="package.product_id.product_template_variant_value_ids" t-as="l">
-                          <strong><span t-field="l.attribute_id.name"/></strong> : <span t-field="l.name"/><br/>
+                       <span t-field="package.product_id"/>
+                       <br/>
+                       
+                    <t t-if="package.product_id.attribute_line_ids">
+                            <t t-foreach="package.product_id.attribute_line_ids" t-as="l">
+                                <strong><span t-field="l.attribute_id.name"/></strong> : 
+                                <t t-foreach="l.value_ids" t-as="la">   
+                                <span t-field="la.name"/> </t>
+                                
+                                <br/>
+
     
-                        </t>
-                    </t></td>
+                            </t>
+                         </t>
+                    <strong  t-if="package.product_id.description_sale">Description:&#160;</strong><span t-field="package.product_id.description_sale"/>
+
+
+                </td>
                     <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><span t-field="package.product_id.l10n_in_hsn_code"/></td>
                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><span t-esc="package.qty_done"/></td>
                    
@@ -146,23 +166,31 @@
 
            <!--  </t> -->
 
-
+           
         
         </table>
 
-     
-
-         <table style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
-                <tr>
-                    <td style="border-style: solid;border-width:1px;font-size:12px" width="100%"><STRONG>Terms and conditions</STRONG></td>
+       <table style="border:none;" width="100%">
+                <tr style="width:100%">
+                    <td style="border:none;font-size:12px;" width="100%"><STRONG>Terms and conditions</STRONG></td>
                     
                 </tr>
                 <tr>
-                     <td style="border-style: solid;border-width:1px;font-size:12px" width="100%"><span t-field="doc.note"/></td>
+                     <td style="border:none;font-size:12px;" width="100%"><span t-field="doc.so_id.sale_term"/></td>
 
                 </tr>
-          </table>      
-              
+                <br/>
+
+                <tr style="width:100%">
+                    <td style="border:none;font-size:12px;" width="100%">
+                            Please Read above conditions before signing<br/>
+                            .............................................<br/>
+
+                            Customer signature &amp;Date
+                    </td>
+                </tr>            
+          </table>
+
         </div>
         </t> 
      </template>

@@ -49,7 +49,7 @@ class Purchase(models.Model):
         # common.version()
         
         if self.partner_id.name == 'Modular':
-            info = xmlrpc.client.ServerProxy('https://ganeshvana-khazana-april-modular-4577685.dev.odoo.com/xmlrpc/2/common')
+            info = xmlrpc.client.ServerProxy('https://ganeshvana-khazana1-modular-4805725.dev.odoo.com/xmlrpc/2/common')
             url = self.env["ir.config_parameter"].sudo().get_param("module.url")
             url = 'https://ganeshvana-khazana1-modular-4805725.dev.odoo.com'
             common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))

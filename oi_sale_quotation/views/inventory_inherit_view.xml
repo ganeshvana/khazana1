@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="days_inherited_for_123">
+        <field name="name">inventory.template.form.warehouse</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[1]" position ="after">
+               <field name="image_variant_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                    
+            </xpath>
+          
+        </field>
+    </record>
+
+
+     <record model="ir.ui.view" id="view_picking_form_inherit">
+        <field name="name">sale.template.form.vehicle_no</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr= "//form/sheet/notebook/page[@name='extra']/group/group/field[@name='company_id']" position ="after">
+                <!-- <field name="vehicle_number"/> -->
+                <field name="so_id"/>
+                 
+            </xpath>
+        </field>
+    </record>
+
+</data>
+
+</odoo>

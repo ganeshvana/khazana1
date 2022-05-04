@@ -7,7 +7,7 @@
     'version': '15.0',
     'author': 'oodu implementers ',
     'description': """""",
-    'depends': ['base', 'sale', 'stock'],
+    'depends': ['base', 'sale', 'stock', 'purchase_term', 'sale_term',],
     'application': True,
     'data': [
         
@@ -20,7 +20,9 @@
          'views/report_template_inward.xml',
         'views/report_inward.xml',
         'views/report_template_material.xml',
-        'views/report_material.xml'
+        'views/report_material.xml',
+        'views/inventory_inherit_view.xml',
+
         
        
        

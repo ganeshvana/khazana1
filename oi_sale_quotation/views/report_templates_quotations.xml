@@ -2,7 +2,20 @@
     <data>
 <template id="sale_report_external_layout">
             <div t-attf-class="header" t-att-style="report_header_style">
-                        </div>
+
+               <table  style="border-style: solid;border-width:1px;" width="100%">
+                <tr  style="border-style: solid;border-width:1px " width="100%">
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    </td>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden"><strong><h4></h4></strong>
+                    </td>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
+                    </td>
+                </tr>
+
+            </table>
+
+       </div>
             <div t-attf-class="article o_report_layout_standard " t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
                 <div class="pt-5">
                     <!-- This div ensures that the address is not cropped by the header. -->
@@ -36,46 +49,49 @@
 
             </style>
 
-            <table   style="border-style: solid;border-width:1px;" width="100%">
-               <tr style="width:100%"> 
-                <td width="50%;border-right:hidden;font-size:12px"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
-                </td>
-                <td width="50%;border-left:hidden;font-size:12px"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
-                </td>
-            </tr>
-            </table>
+           <!--   <table  style="border-style: solid;border-width:1px;" width="100%">
+                <tr  style="border-style: solid;border-width:1px " width="100%">
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    </td>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden"><strong><h4></h4></strong>
+                    </td>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
+                    </td>
+                </tr>
+
+            </table> -->
 
         
-             <table   style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
-                <tr style="width:100%">
+             <table   style="border-style: solid;border-width:1px;border: 1px solid black;" width="100%">
+                <tr style="width:100%;">
                 
               <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"><span  t-field="doc.company_id.street"/>,
-                        <span t-field="doc.company_id.street2"/>,<span t-field="doc.company_id.city"/>,<span t-field="doc.company_id.state_id"/>,<span  t-field="doc.company_id.zip"/>,<span  t-field="doc.company_id.country_id"/>
+                        <span t-field="doc.company_id.street2"/>,<span t-field="doc.company_id.state_id"/>,<span  t-field="doc.company_id.zip"/>,<span  t-field="doc.company_id.country_id"/>
                 </td>
             </tr>
             </table>
 
 
-             <table   style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
+             <table   style="border-style: solid;border: 1px solid black;border-width:1px;border-top:hidden" width="100%">
                 <tr style="width:100%">
                 
-              <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"> Phone:<span t-field="doc.company_id.phone"/>,
+              <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"> PHONE:<span t-field="doc.company_id.phone"/>,
                         URL:<span  t-field="doc.company_id.website"/>,
                         E-MAIL:<span  t-field="doc.company_id.email"/>
                 </td>
             </tr>
             </table>
 
-            <table   style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
+            <!-- <table   style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
                 <tr  style="width:100%">
                 
                 <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"><strong>QUOTATION</strong>
                 </td>
             </tr>
             </table>
-
-            <table  style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
-                <tr style="width:100%;border-style: solid;border-width:1px;">
+ -->
+            <table  style="border-style: solid;border-width:1px;border: 1px solid black;border-top:hidden" width="100%">
+                <tr style="width:100%;border-style: solid;border-width:1px;border: 1px solid black;">
                     
                     <td style="font-size:12px;width:20%;text-align:center"><strong>CONSULTANT/GROUP</strong></td>
                     <td style="font-size:12px;width:17%;text-align:center"><strong>CUSTOMER NAME</strong></td>
@@ -85,7 +101,7 @@
                     <td style="font-size:12px;width:10%;text-align:center"><strong>DATED</strong></td>
                     <td style="font-size:12px;width:10%;text-align:center"><strong>CREATED BY</strong></td>
                 </tr>
-                <tr style="width:100%;border-style: solid;border-width:1px;border-bottom:hidden">
+                <tr style="width:100%;border-style: solid;border-width:1px;">
                     
                     <td style="font-size:12px;width:20%;"><span t-field="doc.partner_id.name"/></td>
                     <td style="font-size:12px;width:17%;"><span t-field="doc.partner_id.name"/></td>
@@ -97,9 +113,18 @@
                 </tr>
             </table>
 
+            <table   style="border-style: solid;border-width:1px;border: 1px solid black;border-top:hidden" width="100%">
+                <tr  style="width:100%">
+                
+                <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"><strong>QUOTATION</strong>
+                </td>
+            </tr>
+            </table>
 
 
-            <table  style="border-style: solid;border-width:1px;" width="100%">
+
+
+            <table  style="border-style: solid;border: 1px solid black;border-width:1px;" width="100%">
                 <tr style="width:100%;border-style: solid;border-width:1px;">
                     
                     <td style="font-size:12px;width:10%; solid;border-width:1px;text-align:center;"><strong>ITEM</strong></td>
@@ -118,28 +143,35 @@
                     <t t-if="not line.display_type">
 
                     <td style="font-size:12px;width:10%; solid;border-width:1px;text-align:center"><span t-esc="line_index + 1"/></td>
-                    <td style="font-size:12px;width:20%;border-right:hidden;"><span t-esc="line.product_id.name"/><br/>
-                        <img t-att-src="image_data_uri(line.product_id.product_tmpl_id.image_1920)" style="max-height: 1.5cm; max-width: 1.2cm;" align="left"/>
+                    <td style="font-size:12px;width:20%;border-right:hidden;text-align:left"><span t-esc="line.product_id.name"/><br/>
+                        <br/>
+                       <img t-att-src="image_data_uri(line.product_id.product_tmpl_id.image_1920)" style="max-height: 1.5cm; max-width: 1.2cm;text-align:left" align="left"/>
                     </td>
 
                     <td style="font-size:12px;width:30%;text-align:left">
-                       <!-- <t t-foreach="l.product_id.attribute_value_ids" t-as="attrib_value">
-                                 <li t-esc=" '%s: %s' % (attrib_value.attribute_id.name, attrib_value.name)"/>
-                            </t>
-                      -->
-                    <t t-if="line.product_id.product_template_variant_value_ids">
-                        <t t-foreach="line.product_id.product_template_variant_value_ids" t-as="l">
-                          <strong><span t-field="l.attribute_id.name"/></strong> : <span t-field="l.name"/><br/>
-    
-                        </t>
-                    </t>
+                      
+                          <t t-if="line.product_id.attribute_line_ids">
+                            <t t-foreach="line.product_id.attribute_line_ids" t-as="l">
+                                <strong><span t-field="l.attribute_id.name"/></strong> : 
+                                <t t-foreach="l.value_ids" t-as="la">   
+                                <span t-field="la.name"/> </t>
+                                
+                                <br/>
+
+<!--                                 <strong>Description:</strong><span t-field="line.product_id.description_sale"/>
+ -->                           </t>
+                         </t>
+                         
+                        <strong  t-if="line.product_id.description_sale">Description:&#160;</strong><span t-field="line.product_id.description_sale"/>
+
+
 
                     </td>
                 
 
                     <td style="font-size:12px;width:20%;text-align:center"><span t-esc="line.product_id.l10n_in_hsn_code"/></td>
                     <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.product_id.list_price"/></td>
-                    <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.product_uom_qty"/></td>
+                    <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.product_uom_qty"/>&#160;<span t-esc="line.product_id.uom_id.name"/></td>
                     <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.price_subtotal"/></td>
 
                   </t>
@@ -160,7 +192,7 @@
                     
                 </t>
                    
-                 <t t-if="line.display_type == 'line_note'">
+                 <!-- <t t-if="line.display_type == 'line_note'">
                     
                     <td style="font-size:12px;width:10%; solid;border-width:1px;text-align:center"><span t-esc="line_index + 1"/></td>
                     <td style="font-size:12px;width:20%;border-right:hidden;"><span t-esc="line.product_id.name"/><br/>
@@ -174,7 +206,7 @@
                     <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.product_uom_qty"/></td>
                     <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.price_subtotal"/></td>
                  
-                </t></tr>
+                </t> --></tr>
             </tr>
         </t>
 
@@ -182,13 +214,13 @@
            
 
               
-             <tr style="border-style: solid;border-width:1px;" width="100%">
+             <tr style="border-style: solid;border: 1px solid black;border-width:1px;" width="100%">
                 <td colspan="3" style="border-style: solid;border-width:1px;border-bottom:hidden" width="50%"></td>
                 <td  colspan="2" style="font-size:12px;width:20%;border:1px solid black;">
-                    <span>Untaxed Amount</span> 
+                    <span>Subtotal</span> 
                 </td>
                 <td colspan="1" style="width:10%;text-align:center"></td>
-                <td style="width:20%;text-align:right">
+                <td style="width:20%;text-align:right;font-size:12px">
                     <span t-field="doc.amount_untaxed"/>
 
                 </td>
@@ -202,30 +234,30 @@
                             </t>
                             <t t-if="subtotal_to_show">
                             <t t-foreach="tax_totals['groups_by_subtotal'][subtotal_to_show]" t-as="amount_by_group">
-                            <tr t-if="amount_by_group" style="border-style: solid;border-width:1px;" width="100%">
+                            <tr t-if="amount_by_group" style="border-style: solid;border-width:1px;font-size:12px" width="100%">
                                 <t t-if="len(tax_totals['groups_by_subtotal'][subtotal_to_show]) > 1">
-                                 <td  colspan="3" style="font-size:12px;border-style: solid;border-width:1px;border-bottom:hidden" width="50%"></td>
+                                 <td  colspan="3" style="font-size:12px;border-style: solid;border-width:1px;border-bottom:hidden;font-size:12px" width="50%"></td>
 
-                                  <td  colspan="2" style="width:20%;border:1px solid black">
+                                  <td  colspan="2" style="width:20%;border:1px solid black;font-size:12px">
                                         <span t-esc="amount_by_group['tax_group_name']"/>
                                         <span class="text-nowrap"> on
                                              <t t-esc="amount_by_group['formatted_tax_group_base_amount']"/>
                                         </span>
                                     </td>
-                                    <td colspan="1" style="width:10%;text-align:center"></td>
-                                    <td  colspan="0" style="width:20%;text-align:right">
+                                    <td colspan="1" style="width:10%;text-align:center;font-size:12px"></td>
+                                    <td  colspan="0" style="width:20%;text-align:right;font-size:12px">
                                         <span class="text-nowrap" t-esc="amount_by_group['formatted_tax_group_amount']"/>
 
                                     </td>
 
                                 </t>
                                 <t t-else="">
-                                    <td  colspan="3" style="width:50%;border-bottom:hidden;border:1px solid black;border-bottom:hidden">
+                                    <td  colspan="3" style="width:50%;border-bottom:hidden;border:1px solid black;border-bottom:hidden;font-size:12px">
                                     </td>
-                                    <td colspan="2" style="width:20%;border:1px solid black"><span class="text-nowrap" t-esc="amount_by_group['tax_group_name']"/></td>
-                                    <td colspan="1" style="font-size:12px;width:10%;text-align:center"></td>
+                                    <td colspan="2" style="width:20%;border:1px solid black;font-size:12px"><span class="text-nowrap" t-esc="amount_by_group['tax_group_name']"/></td>
+                                    <td colspan="1" style="font-size:12px;width:10%;text-align:center;font-size:12px"></td>
                                    
-                                    <td colspan="" style="width:20%;text-align:right">
+                                    <td colspan="" style="width:20%;text-align:right;font-size:12px">
                                         <span class="text-nowrap" t-esc="amount_by_group['formatted_tax_group_amount']"/>
 
                                     </td>
@@ -238,7 +270,7 @@
                             <tr style="border-style: solid;border-width:1px;" width="100%">
                               <td  colspan="3" style="border-style: solid;border-width:1px;font-size:12px" width="50%"></td>
                                <td colspan="2" style="font-size:12px;width:20%;">
-                                    <span><strong>Net</strong></span> 
+                                    <span><strong>TOTAL</strong></span> 
                                 </td>
                                  <td colspan="1" style="width:10%;text-align:center;font-size:12px">
                                     <strong><t t-set="i" t-value="0"/>
@@ -254,76 +286,60 @@
   
             </table>
             
-          
+          <!-- <table style="border-style: solid;border: 1px solid black;border-width:1px;" width="100%">
+                <tr>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>HSN</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>Taxable value</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="40%"><strong>IGST Tax</strong></td>
+                <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>Total Tax Amt</strong></td>
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong></strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong></strong></td>
+                    <td colspan="2" style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>Rate(%)</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>Ammount</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong></strong></td>
+
+                </tr>
+               <tr>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong></strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong></strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>Rate(%)</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>Ammount</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong></strong></td>
+
+                </tr>
+                <tr>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>Total</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>1</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong></strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>1</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center" width="20%"><strong>1</strong></td>
+
+                </tr>
+        </table>
+ -->
 
 
-
-
-
-
-<!-- <t t-foreach="doc.order_line" t-as="line">
-
-                 <tr  style="font-size:12px;width:100%;border-style: solid;border-width:1px;text-align:center">
-
-                    <t t-if="not line.display_type">
-
-                    <td style="font-size:12px;width:10%; solid;border-width:1px;text-align:center"><span t-esc="line_index + 1"/></td>
-                    <td style="font-size:12px;width:20%;border-right:hidden;"><span t-esc="line.product_id.name"/><br/>
-                        <img t-att-src="image_data_uri(line.product_id.product_tmpl_id.image_1920)" style="max-height: 1.5cm; max-width: 1.2cm;" align="left"/>
-                    </td>
-
-                    <t t-foreach="doc.attribute_line_ids" t-as="line">
-                    <td style="font-size:12px;width:30%;text-align:left"><strong>Model No :<span t-esc="attribute_id"/>:</strong><span t-esc="Value_id"/><br/>
-                        <strong>Brand :</strong><br/>
-                        <strong>Cover Category:</strong><br/> 
-                        <strong>Container:</strong><br/>
-                        <t t-set="i" t-value="0"/>
-                        <t t-foreach="doc.order_line" t-as="l">
-                            <t t-set="i" t-value="i+l.product_id.attribute_id"/>
-                        </t>
-                        <t t-esc="(i)" t-options='{"widget": "float", "precision": 2}'/>
-                        <t t-foreach="l.product_id.attribute_value_ids" t-as="attrib_value">
-                           <li t-esc=" '%s: %s' % (attrib_value.attribute_id.name, attrib_value.name)"/>
-                    </t>
-                     
-                    <t t-if="line.product_id.product_template_variant_value_ids">
-                        <t t-foreach="line.product_id.product_template_variant_value_ids" t-as="l">
-                          <strong><span t-field="l.attribute_id.name"/></strong> : <span t-field="l.name"/> <br/>
-    
-                        </t>
-                    </t>
-
-                    </td>
-                </t>
-
-                    <td style="font-size:12px;width:20%;text-align:center"><span t-esc="line.product_id.l10n_in_hsn_code"/></td>
-                    <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.product_id.list_price"/></td>
-                    <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.product_uom_qty"/></td>
-                    <td style="font-size:12px;width:10%;text-align:center"><span t-esc="line.price_subtotal"/></td>
-                  </t>
-                   
-
-                   <tr>
-
-                    -->
-
-
-
-
-
-
-
-
-       
-          <table style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
+          <table style="border:none;" width="100%">
                 <tr style="width:100%">
-                    <td style="border-style: solid;border-width:1px;font-size:12px;" width="100%"><STRONG>Terms and conditions</STRONG></td>
+                    <td style="border:none;font-size:12px;" width="100%"><STRONG>Terms and conditions</STRONG></td>
                     
                 </tr>
                 <tr>
-                     <td style="border-style: solid;border-width:1px;font-size:12px;" width="100%"><span t-field="doc.note"/></td>
+                     <td style="border:none;font-size:12px;" width="100%"><span t-field="doc.sale_term"/></td>
 
                 </tr>
+                <br/>
+
+                <tr style="width:100%">
+                    <td style="border:none;font-size:12px;" width="100%">
+                            Please Read above conditions before signing<br/>
+                            .............................................<br/>
+
+                            Customer signature &amp;Date
+                    </td>
+                </tr>            
           </table>
       </div>
         </t> 
