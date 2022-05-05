@@ -7,6 +7,8 @@
             <field name="arch" type="xml">    
             	<xpath expr="//header" position="inside">
             		<button name="open_cart_detail" type="object" string="Open Cart" attrs="{'invisible': ['|', ('website_id', '=', False),('state', 'not in', ['draft','sent'])]}"/>
+            		<button name="reserve_delivery" type="object" string="Reserve"/>
+            		<button name="unreserve_delivery" type="object" string="Un Reserve"/>
             	</xpath>        	
             	<xpath expr="//field[@name='payment_term_id']" position="attributes">
             		<attribute name="required">True</attribute>

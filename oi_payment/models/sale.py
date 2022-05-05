@@ -67,6 +67,31 @@ class SaleOrder(models.Model):
             'target': 'new',
         }
         
+    def unreserve_delivery(self):
+        picking_ids = self.picking_ids.filtered(lambda m: m.state == 'assigned')
+        print(picking_ids, "picking_ids==ddddd====")
+        for picking in picking_ids:
+            picking.move_lines._do_unreserve()
+            picking.package_level_ids.filtered(lambda p: not p.move_ids).unlink()
+    
+    def reserve_delivery(self):
+        picking_ids = self.picking_ids.filtered(lambda m: m.state == 'confirmed')
+        print(picking_ids, "picking_ids======")
+        for picking in picking_ids:
+            picking.action_assign()
+            # picking.filtered(lambda picking: picking.state == 'draft').action_confirm()
+            # moves = picking.mapped('move_lines').filtered(lambda move: move.state not in ('draft', 'cancel', 'done'))
+            # if not moves:
+            #     raise UserError(_('Nothing to check the availability for.'))
+            # # If a package level is done when confirmed its location can be different than where it will be reserved.
+            # # So we remove the move lines created when confirmed to set quantity done to the new reserved ones.
+            # package_level_done = self.mapped('package_level_ids').filtered(lambda pl: pl.is_done and pl.state == 'confirmed')
+            # package_level_done.write({'is_done': False})
+            # moves._action_assign()
+            # package_level_done.write({'is_done': True})
+            #
+            # return True
+        
     
     
 class PaymentDetails(models.Model):
