@@ -7,10 +7,12 @@ class SaleOrder(models.Model):
 
     payment_detail_ids = fields.One2many('payment.details', 'sale_order_id',"Payment Details")
     crm_stage_id = fields.Many2one('crm.stage', "CRM Stage")
+    reserved = fields.Boolean("Reserved")
             
     @api.model
     def create(self, vals):
         res = super(SaleOrder, self).create(vals)
+        res.state = 'draft'
         if res.payment_term_id:
             payterm_vals = []
             if res.payment_detail_ids:
@@ -69,16 +71,21 @@ class SaleOrder(models.Model):
         
     def unreserve_delivery(self):
         picking_ids = self.picking_ids.filtered(lambda m: m.state == 'assigned')
-        print(picking_ids, "picking_ids==ddddd====")
         for picking in picking_ids:
             picking.move_lines._do_unreserve()
             picking.package_level_ids.filtered(lambda p: not p.move_ids).unlink()
+        self.action_cancel()
+        self.action_draft()
+        self.reserved = False
     
     def reserve_delivery(self):
         picking_ids = self.picking_ids.filtered(lambda m: m.state == 'confirmed')
-        print(picking_ids, "picking_ids======")
         for picking in picking_ids:
             picking.action_assign()
+        self.action_confirm()
+        readypicking_ids = self.picking_ids.filtered(lambda m: m.state == 'assigned')
+        if readypicking_ids:
+            self.reserved = True
             # picking.filtered(lambda picking: picking.state == 'draft').action_confirm()
             # moves = picking.mapped('move_lines').filtered(lambda move: move.state not in ('draft', 'cancel', 'done'))
             # if not moves:
@@ -92,7 +99,8 @@ class SaleOrder(models.Model):
             #
             # return True
         
-    
+    def reserve(self):
+        return True
     
 class PaymentDetails(models.Model):
     _name = 'payment.details'
@@ -105,6 +113,21 @@ class PaymentDetails(models.Model):
     payment_ids = fields.Many2many('account.payment', 'payment_sale_rel', 'pay_id', 'sale_id', "Payment")
     currency_id = fields.Many2one(related='sale_order_id.currency_id', string="Currency")
     payment_amount = fields.Monetary("Payment Amount")
+    actual_amount = fields.Monetary("Actual Amount", compute='compute_actual_amount', store=True)
+    balance_amount = fields.Monetary("Balance Amount", compute='compute_balance_amount', store=True)
+    amount_total = fields.Monetary(related='sale_order_id.amount_total', store=True)
+    
+    @api.depends('amount_total', 'payment_term_line_id', 'payment_term_line_id.value_amount')
+    def compute_actual_amount(self):
+        for rec in self:
+            if rec.payment_term_line_id and rec.payment_term_line_id.value_amount and rec.amount_total:
+                if rec.payment_term_line_id.value_amount > 0.0:
+                    rec.actual_amount = rec.payment_term_line_id.value_amount
+                    
+    @api.depends('payment_amount', 'actual_amount', 'payment_term_line_id.value_amount')
+    def compute_balance_amount(self):
+        for rec in self:
+            rec.balance_amount = rec.actual_amount - rec.payment_amount
     
 class Payterm(models.Model):
     _inherit = "account.payment.term.line"    

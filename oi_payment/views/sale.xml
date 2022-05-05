@@ -9,13 +9,17 @@
             		<button name="open_cart_detail" type="object" string="Open Cart" attrs="{'invisible': ['|', ('website_id', '=', False),('state', 'not in', ['draft','sent'])]}"/>
             		<button name="reserve_delivery" type="object" string="Reserve"/>
             		<button name="unreserve_delivery" type="object" string="Un Reserve"/>
-            	</xpath>        	
+            	</xpath>     
+            	<xpath expr="//div[@class='oe_button_box']" position="inside">
+            		<button name="reserve" icon="fa-lock" type="object" string="Reserved" attrs="{'invisible': [('reserved', '=', False)]}"/>
+            	</xpath>   	
             	<xpath expr="//field[@name='payment_term_id']" position="attributes">
             		<attribute name="required">True</attribute>
             	</xpath>
             	<xpath expr="//field[@name='payment_term_id']" position="after">
             		<field name="crm_stage_id"/>
             		<field name="website_id" invisible="1"/>
+            		<field name="reserved" invisible="1"/>
             	</xpath>
                 <xpath expr="//page[@name='other_information']" position="after">
                 	<page string="Payment">
@@ -29,6 +33,17 @@
                 		</field>
                 	</page>                    
                 </xpath>
+            </field>
+        </record>
+        
+        <record id="sale_order_view_search_inherit_quotation_reser" model="ir.ui.view">
+            <field name="name">view.inherit.sale.order.creditlimit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">  
+            	<filter name="my_quotation" position="after">
+            		<filter string="Reserved" name="reserved" domain="[('reserved', '=', True)]"/>
+            	</filter>            	
             </field>
         </record>
         

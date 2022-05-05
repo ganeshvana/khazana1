@@ -10,7 +10,7 @@
         	</xpath>
         	<xpath expr= "//field[@name='journal_id']" position ="after">
         		<field name="narration"/>
-                <field name="sale_order_id" domain="[('partner_id','=',partner_id),('state','=','sale')]" attrs="{'invisible': [('payment_type','=', 'outbound')]}"/>
+                <field name="sale_order_id" domain="[('partner_id','=',partner_id),('state','!=','cancel')]" attrs="{'invisible': [('payment_type','=', 'outbound')]}"/>
                 <field name="payment_term_line_ids" widget="many2many_tags" attrs="{'invisible': [('payment_type','=', 'outbound')]}"/>
                 <field name="purchase_order_id" domain="[('partner_id','=',partner_id),('state','=','purchase')]" attrs="{'invisible': [('payment_type','=', 'inbound')]}"/>
                 <field name="po_payment_term_line_ids" widget="many2many_tags" attrs="{'invisible': [('payment_type','=', 'inbound')]}"/>

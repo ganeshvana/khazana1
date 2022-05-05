@@ -40,6 +40,23 @@ class Product(models.Model):
     seller_ids = fields.One2many('product.supplierinfo', 'product_tmpl_id', 'Vendors', depends_context=('company',), help="Define vendor pricelists.", copy=True)
     sold_units = fields.Float("Sold in web")
     po_units = fields.Float("PO in web")
+    website_name = fields.Char("Website Product Name", compute='compute_website_name', store=True)
+    
+    @api.depends('attribute_line_ids', 'name', 'default_code')
+    def compute_website_name(self):
+        for rec in self:
+            wname = ''
+            if rec.default_code:
+                wname += rec.default_code + ' '
+            if rec.name:
+                wname += rec.name
+            if rec.attribute_line_ids:
+                att = ''
+                for line in rec.attribute_line_ids:
+                    att += line.value_ids[0].name + ','
+                att = att[:-1]    
+                wname += '(' + att + ')'
+            rec.website_name = wname
     
     # @api.depends('qty_available')
     def check_stock(self):
