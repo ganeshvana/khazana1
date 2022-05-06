@@ -65,6 +65,7 @@ class WebsiteSale(http.Controller):
         if request.website.crm_id and order:
             order.opportunity_id = request.website.crm_id.id
             order.partner_id = request.website.crm_id.partner_id.id
+            order.state = 'draft'
             addr = request.website.crm_id.partner_id.address_get(['delivery', 'invoice'])
             order.partner_invoice_id = addr['invoice']
             order.partner_shipping_id = addr['delivery']
