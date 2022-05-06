@@ -69,6 +69,11 @@ class SaleOrder(models.Model):
             'target': 'new',
         }
         
+    def action_confirm(self):
+        res = super(SaleOrder, self).action_confirm()
+        self.reserved =True
+        return res
+        
     def unreserve_delivery(self):
         picking_ids = self.picking_ids.filtered(lambda m: m.state == 'assigned')
         for picking in picking_ids:
