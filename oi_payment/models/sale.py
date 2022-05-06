@@ -119,10 +119,17 @@ class PaymentDetails(models.Model):
     
     @api.depends('amount_total', 'payment_term_line_id', 'payment_term_line_id.value_amount')
     def compute_actual_amount(self):
+        total_percent = 0.0
         for rec in self:
-            if rec.payment_term_line_id and rec.payment_term_line_id.value_amount and rec.amount_total:
-                if rec.payment_term_line_id.value_amount > 0.0:
-                    rec.actual_amount = rec.payment_term_line_id.value_amount
+            if rec.payment_term_line_id:
+                if rec.payment_term_line_id.value == 'percent':
+                    total_percent += rec.payment_term_line_id.value_amount
+        for rec in self:            
+            if rec.payment_term_line_id:
+                if rec.payment_term_line_id.value == 'percent' and rec.payment_term_line_id.value_amount > 0.0:
+                    rec.actual_amount = rec.amount_total * (rec.payment_term_line_id.value_amount / 100)
+                if rec.payment_term_line_id.value == 'balance':
+                    rec.actual_amount = rec.amount_total - (rec.amount_total * (total_percent / 100))
                     
     @api.depends('payment_amount', 'actual_amount', 'payment_term_line_id.value_amount')
     def compute_balance_amount(self):

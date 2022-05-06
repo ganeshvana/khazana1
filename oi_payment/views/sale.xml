@@ -31,6 +31,7 @@
                 				<field name="payment_amount" string="Payment Amount"/>
                 				<field name="actual_amount"/>
                 				<field name="balance_amount"/>
+                				<field name="amount_total" optional="hide"/>
                 			</tree>
                 		</field>
                 	</page>                    
