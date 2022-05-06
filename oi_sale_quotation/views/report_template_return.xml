@@ -1,7 +1,23 @@
 <odoo>
     <data>
-<template id="sale_report_external_layout">
+<template id="salereturn_report_external_layout">
             <div t-attf-class="header" t-att-style="report_header_style">
+                 <!-- <table   style="border-style: solid;border-width:1px;border-bottom:hidden" width="100%">
+
+               <tr style="solid;border-width:1px;width:100%"> 
+                    <td style="width:100%;text-align:center"><h4><strong>Return Delivery Challan</strong></h4></td>
+            </tr>
+
+            </table>
+            <table   style="border-style: solid;border-width:1px;" width="100%">
+               <tr style="width:100%"> 
+                <td width="50%;border-right:hidden;font-size:12px"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                </td>
+                <td width="50%;border-left:hidden;font-size:12px"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
+                </td>
+            </tr>
+            </table> -->
+
                         </div>
             <div t-attf-class="article o_report_layout_standard " t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
                 <div class="pt-5">
@@ -19,7 +35,7 @@
             </div>
             </template>
         <template id="report_returndeliverychallan_report_template">
-            <t t-call="oi_sale_quotation.sale_report_external_layout">
+            <t t-call="oi_sale_quotation.salereturn_report_external_layout">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <div class="page">
                 <style>
@@ -36,29 +52,19 @@
 
             </style>
 
-           <!--  <table  style="border-style: solid;border-width:1px;" width="100%">
-                <tr  style="width:100%">
-                       <td style="width:100%"><strong><h4>Return Delivery Challan</h4></strong></td>
-
-                </tr>
-             </table>      --> 
+          
 
 
-             <table   style="border-style: solid;border-width:1px;border-bottom:hidden" width="100%">
+            <table   style="border-style: solid;border-width:1px;border-bottom:hidden" width="100%">
 
                <tr style="solid;border-width:1px;width:100%"> 
                     <td style="width:100%;text-align:center"><h4><strong>Return Delivery Challan</strong></h4></td>
             </tr>
 
             </table>
-
-<!-- 
-             <p><strong><h4><center style="font-size:12px">Return Delivery Challan</center></h4></strong></p>    
- -->
             <table   style="border-style: solid;border-width:1px;" width="100%">
                <tr style="width:100%"> 
-                <!-- <td style="width:100%"><strong><h4>Return Delivery Challan</h4></strong></td><br/> -->
-                <td width="50%;border-right:hidden;font-size:12px"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                <td width="50%;border-right:hidden;font-size:12px"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
                 </td>
                 <td width="50%;border-left:hidden;font-size:12px"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
                 </td>
@@ -150,65 +156,66 @@
                 </tr>
             </table>
 
+            <table style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
 
-
-
-             <table  style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
-                <tr style="width:100%;border-style: solid;border-width:1px;">
+                <tr>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><strong>ITEM</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="50%"><strong>DESCRIPTION</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="20%"><strong>HSN Code</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="20%"><strong>QTY</strong></td>
                     
-                    <td style="width:10%;text-align:center;font-size:12px"><strong>SI.No</strong></td>
-                    <td style="width:20%;text-align:center;font-size:12px"><strong>Product</strong></td>
-                    <td style="width:20%;text-align:center;font-size:12px"><strong>Image</strong></td>
-                    <td style="width:10%;text-align:center;font-size:12px"><strong>Version</strong></td>
-                    <td style="width:10%;text-align:center;font-size:12px"><strong>Cover Category</strong></td>
-                    <td style="width:10%;text-align:center;font-size:12px"><strong>Container</strong></td>
-                    <td style="width:10%;text-align:center;font-size:12px"><strong>Pcs/Set</strong></td>
-                    <td style="width:10%;text-align:center;font-size:12px"><strong>Quantity</strong></td>
+
+                </tr>
+
+                 <t t-foreach="doc.move_line_ids_without_package" t-as="package">
+                 <tr>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><span t-esc="package_index + 1"/></td>
+                    <td style="border-style: solid;border-width:1px;text-align:left;font-size:12px" width="30%">
+                       <span t-field="package.product_id"/>
+                       <br/>
+                       
+                    <t t-if="package.product_id.attribute_line_ids">
+                            <t t-foreach="package.product_id.attribute_line_ids" t-as="l">
+                                <strong><span t-field="l.attribute_id.name"/></strong> : 
+                                <t t-foreach="l.value_ids" t-as="la">   
+                                <span t-field="la.name"/> </t>
+                                
+                                <br/>
+
+    
+                            </t>
+                         </t>
+                    <strong  t-if="package.product_id.description_sale">Description:&#160;</strong><span t-field="package.product_id.description_sale"/>
+
+
+                </td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><span t-field="package.product_id.l10n_in_hsn_code"/></td>
+                   <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><span t-esc="package.qty_done"/></td>
                    
                 </tr>
-
-            <t t-foreach="doc.move_line_ids_without_package" t-as="package">
-                <tr style="width:100%;border-style: solid;border-width:1px;">
-                    
-                    <td style="width:10%;text-align:center;font-size:12px"><span t-esc="package_index + 1"/></td>
-                    <td style="width:20%;font-size:12px"><span t-esc="package.product_id.name"/></td>
-                    <td style="width:20%;font-size:12px">
-                        <img t-att-src="image_data_uri(package.product_id.product_tmpl_id.image_1920)" style="max-height: 1.5cm; max-width: 1.2cm;" align="center"/>
-                    </td>
-                    <td style="width:10%;text-align:center;font-size:12px">
-                       </td>
-
-                    <td style="width:10%;font-size:12px"></td>
-                    <td style="width:10%;text-align:center;font-size:12px"></td>
-                     <td style="width:10%;font-size:12px"></td>
-                    <td style="width:10%;text-align:center;font-size:12px"><span t-esc="package.qty_done"/></td>
-                    
-                </tr>
             </t>
-                      
-                <tr style="width:100%;border-style: solid;border-width:1px;">
-                    
-                    <td style="width:10%;text-align:center;border-right:hidden;font-size:12px"></td>
-                    <td style="width:20%;text-align:center;border-right:hidden;font-size:12px"></td>
-                    <td style="width:20%;text-align:center;border-right:hidden;font-size:12px"></td>
-                    <td style="width:10%;text-align:center;border-right:hidden;font-size:12px">
-                       </td>
+        </table>
 
-                    <td style="width:10%;text-align:center;border-right:hidden;font-size:12px"></td>
-                    <td style="width:10%;text-align:center;border-right:hidden;font-size:12px"></td>
-                     <td style="width:10%;text-align:center;border-right:hidden;font-size:12px"><strong>Total Qty</strong></td>
-                    <td style="width:10%;text-align:center;font-size:12px">
-                         <strong><t t-set="i" t-value="0"/>
+           <table style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
+                <tr>
+                     <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px;border-right:hidden" width="10%"></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px;border-right:hidden" width="50%"></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px:border-right:hidden;font-size:12px" width="20%"><strong>Total Qty</strong></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="20%"><strong><t t-set="i" t-value="0"/>
                         <t t-foreach="doc.move_line_ids_without_package" t-as="l">
                             <t t-set="i" t-value="i+l.qty_done"/>
                         </t>
-                        <t t-esc="(i)" t-options='{"widget": "float", "precision": 2}'/></strong> 
-                    </td>
-                    
-                </tr>
-          
-            </table>
+                        <t t-esc="(i)" t-options='{"widget": "float", "precision": 2}'/></strong> </td>
+                </tr>    
 
+           <!--  </t> -->
+
+           
+        
+        </table>
+
+
+            
             <br/>
             <br/>
             <br/>
@@ -247,12 +254,16 @@
         </tr>
 
          <tr style="width:100%">    
-             <td style="width:100%;text-align:left;border-left:hidden;border-right:hidden;border-top:hidden;font-size:12px"><span t-esc="doc.note"/>
+             <td style="width:100%;text-align:left;border-left:hidden;border-right:hidden;border-top:hidden;font-size:12px">
+                Transportation Charges ₹ &#160;.....................<br/>
+                Do not tip or get personal jobs done through delivery boys<br/>
+                No complaints shall be entertained beyond 24 Hrs. of delivery
              </td>
+             <br/>
          </tr>    
             <tr style="width:100%">  
              <td style="border-left:hidden;border-right:hidden;border-top:hidden;border-bottom:hidden;font-size:12px">
-             GSTIN :<span t-esc="doc.partner_id.vat"/>
+             GSTIN :&#160;<span t-esc="doc.company_id.vat"/>
          </td>
 
          </tr>   

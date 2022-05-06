@@ -23,12 +23,6 @@
         'views/report_material.xml',
         'views/inventory_inherit_view.xml',
 
-        
-       
-       
-       
-       
-
-
+      
     ],
 }

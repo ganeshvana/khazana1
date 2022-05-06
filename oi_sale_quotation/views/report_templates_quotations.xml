@@ -1,9 +1,9 @@
 <odoo>
     <data>
-<template id="sale_report_external_layout">
+<template id="salequotation_report_external_layout">
             <div t-attf-class="header" t-att-style="report_header_style">
 
-               <table  style="border-style: solid;border-width:1px;" width="100%">
+             <!--   <table  style="border-style: solid;border-width:1px;" width="100%">
                 <tr  style="border-style: solid;border-width:1px " width="100%">
                     <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
                     </td>
@@ -13,7 +13,7 @@
                     </td>
                 </tr>
 
-            </table>
+            </table> -->
 
        </div>
             <div t-attf-class="article o_report_layout_standard " t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
@@ -32,7 +32,7 @@
             </div>
             </template>
         <template id="report_quotation_report_template">
-            <t t-call="oi_sale_quotation.sale_report_external_layout">
+            <t t-call="oi_sale_quotation.salequotation_report_external_layout">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <div class="page">
                 <style>
@@ -48,8 +48,7 @@
                 }
 
             </style>
-
-           <!--   <table  style="border-style: solid;border-width:1px;" width="100%">
+            <table  style="border-style: solid;border-width:1px;" width="100%">
                 <tr  style="border-style: solid;border-width:1px " width="100%">
                     <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
                     </td>
@@ -59,10 +58,12 @@
                     </td>
                 </tr>
 
-            </table> -->
+            </table>
+
+           
 
         
-             <table   style="border-style: solid;border-width:1px;border: 1px solid black;" width="100%">
+             <table   style="border-style: solid;border-width:1px;border: 1px solid black;border-top:hidden" width="100%">
                 <tr style="width:100%;">
                 
               <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"><span  t-field="doc.company_id.street"/>,
@@ -103,8 +104,8 @@
                 </tr>
                 <tr style="width:100%;border-style: solid;border-width:1px;">
                     
-                    <td style="font-size:12px;width:20%;"><span t-field="doc.partner_id.name"/></td>
-                    <td style="font-size:12px;width:17%;"><span t-field="doc.partner_id.name"/></td>
+                    <td style="font-size:12px;width:20%;text-align:center"><span t-field="doc.partner_id.name"/></td>
+                    <td style="font-size:12px;width:17%;text-align:center"><span t-field="doc.partner_id.name"/></td>
                     <td style="font-size:12px;width:16%;text-align:center"><span t-field="doc.partner_id.mobile"/></td>
                     <td style="font-size:12px;width:20%;text-align:center"><span t-field="doc.partner_id.email"/></td>
                     <td style="font-size:12px;width:7%;text-align:center"><span t-field="doc.name"/></td>

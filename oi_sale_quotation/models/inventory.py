@@ -15,8 +15,10 @@ class stock_picking(models.Model):
 
     # vehicle_number = fields.Char(string="Vehicle No.", copy=False)
     # so_id = fields.Many2one('sale.order','SO',compute='_get_sale')
-    # so_id = fields.Many2one('purchase.order','SO',compute='_get_purchase')
+    date = fields.Many2one('purchase.order','SO',compute='_get_purchase')
     so_id = fields.Many2one('sale.order','SO Number',compute='_get_sale')
+    reference_number = fields.Char(string="Reference", copy=False)
+
 
 
 
@@ -36,16 +38,16 @@ class stock_picking(models.Model):
 
 
 
-    # @api.depends('origin')
-    # def _get_purchase(self):
-    #     for record in self:
-    #         record.so_id = ''
-    #         if record.origin:
-    #             so_obj = self.env['purchase.order'].search([('name','=',record.origin)])
-    #             if so_obj:
-    #                 record.so_id = so_obj.id
-    #             else:
-    #                 record.so_id = '' 
+    @api.depends('origin')
+    def _get_purchase(self):
+        for record in self:
+            record.date = ''
+            if record.origin:
+                so_obj = self.env['purchase.order'].search([('name','=',record.origin)])
+                if so_obj:
+                    record.date = so_obj.id
+                else:
+                    record.date = '' 
 
 
     @api.depends('origin')
