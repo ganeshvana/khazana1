@@ -7,8 +7,8 @@
             <field name="arch" type="xml">    
             	<xpath expr="//header" position="inside">
             		<button name="open_cart_detail" type="object" string="Open Cart" attrs="{'invisible': ['|', ('website_id', '=', False),('state', 'not in', ['draft','sent'])]}"/>
-            		<button name="reserve_delivery" type="object" string="Reserve"/>
-            		<button name="unreserve_delivery" type="object" string="Un Reserve"/>
+            		<button name="reserve_delivery" type="object" string="Reserve" attrs="{'invisible': [('reserved', '=', True)]}"/>
+            		<button name="unreserve_delivery" type="object" string="Un Reserve" attrs="{'invisible': [('reserved', '=', False)]}"/>
             	</xpath>     
             	<xpath expr="//div[@class='oe_button_box']" position="inside">
             		<button name="reserve" icon="fa-lock" type="object" string="Reserved" attrs="{'invisible': [('reserved', '=', False)]}"/>
