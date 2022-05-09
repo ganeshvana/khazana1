@@ -98,7 +98,7 @@
                          <field name="recurring_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/>
                          <field name="recurring_plan"/>
                      </t>
-                     <div>Sale Amount <field name="sale_amount_total" widget="monetary" options="{'currency_field': 'company_currency'}"/></div>
+                     <div>Quote Amount <field name="sale_amount_total" widget="monetary" options="{'currency_field': 'company_currency'}"/></div>
                  </div>
         	</xpath>
         </field>
@@ -134,9 +134,9 @@
 		<field name="inherit_id" ref="stock.view_picking_form" />
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='origin']" position="after">	
-				<field name="container" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" readonly="1"/>				
-				<field name="eta" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" readonly="1"/>	
-				<field name="import_stage" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+				<field name="container" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>				
+				<field name="eta" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
+				<field name="import_stage" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" invisible="1"/>
 			</xpath>		
 		</field>
 	</record>  
@@ -160,12 +160,13 @@
 			<xpath expr="//field[@name='picking_type_id']" position="after">	
 				<field name="container"/>				
 				<field name="eta"/>	
-				<field name="import_stage"/>
+				<seperator/>
+				<filter string="Ready for Dispatch" name="rfd" domain="[('rfd', '=', True)]"/>
 			</xpath>		
 			<xpath expr="//group" position="inside">	
 				<filter string="Container" name="container" domain="[]" context="{'group_by': 'container'}"/>
 				<filter string="ETA" name="eta" domain="[]" context="{'group_by': 'eta'}"/>
-				<filter string="Import Stage" name="import_stage" domain="[]" context="{'group_by': 'import_stage'}"/>
+				
 			</xpath>		
 		</field>
 	</record>  

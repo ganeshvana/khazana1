@@ -61,7 +61,7 @@ class Purchase(models.Model):
             password = 'admin'
             modells = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
             customer = modells.execute_kw(db, uid, password, 'res.partner', 'search', [[['name', '=', 'Khazana']]])
-            sale = modells.execute_kw(db, uid, password, 'sale.order', 'create', [{'partner_id': customer[0],'client_order_ref': self.name}])
+            sale = modells.execute_kw(db, uid, password, 'sale.order', 'create', [{'partner_id': customer[0],'client_order_ref': self.name + self.origin}])
             sale_ref = modells.execute_kw(db, uid, password, 'sale.order', 'search', [[['id', '=', sale]]])
             self.partner_ref = sale_ref
             for line in self.order_line:

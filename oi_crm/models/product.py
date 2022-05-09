@@ -151,6 +151,8 @@ class Picking(models.Model):
         ('eta', 'Estimated time of Arrival'),
         ], string="Import Stages", default='shipment')
     eta = fields.Date("ETA")
+    etd = fields.Date("ETA")
+    rfd = fields.Boolean("Ready for Despatch")
     container = fields.Char("Container")
     
     def button_validate(self):
