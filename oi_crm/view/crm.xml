@@ -135,7 +135,9 @@
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='origin']" position="after">	
 				<field name="container" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>				
+				<field name="etd" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
 				<field name="eta" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
+				<field name="rfd" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
 				<field name="import_stage" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" invisible="1"/>
 			</xpath>		
 		</field>
@@ -160,7 +162,7 @@
 			<xpath expr="//field[@name='picking_type_id']" position="after">	
 				<field name="container"/>				
 				<field name="eta"/>	
-				<seperator/>
+				<separator/>
 				<filter string="Ready for Dispatch" name="rfd" domain="[('rfd', '=', True)]"/>
 			</xpath>		
 			<xpath expr="//group" position="inside">	
