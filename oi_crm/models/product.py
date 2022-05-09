@@ -150,8 +150,8 @@ class Picking(models.Model):
         ('nncd', 'Estimated time of Despatch'),
         ('eta', 'Estimated time of Arrival'),
         ], string="Import Stages", default='shipment')
-    eta = fields.Date("ETA")
-    etd = fields.Date("ETA")
+    eta = fields.Date("Estimated time of Arrival")
+    etd = fields.Date("Estimated time of Delivery")
     rfd = fields.Boolean("Ready for Despatch")
     container = fields.Char("Container")
     
