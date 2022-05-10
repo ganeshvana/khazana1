@@ -4,9 +4,9 @@ class stock_warehouse(models.Model):
     _inherit = "stock.warehouse"
 
 
-    image_variant_1920 = fields.Image("Variant Image", max_width=1920, max_height=1920)
+    # image_variant_1920 = fields.Image("Variant Image", max_width=1920, max_height=1920)
 
-
+    product_image = fields.Binary(string='Image')
 
     
 

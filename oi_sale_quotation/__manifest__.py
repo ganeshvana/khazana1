@@ -7,7 +7,7 @@
     'version': '15.0',
     'author': 'oodu implementers ',
     'description': """""",
-    'depends': ['base', 'sale', 'stock', 'purchase_term', 'sale_term',],
+    'depends': ['base', 'sale', 'stock', 'sale_term',],
     'application': True,
     'data': [
         

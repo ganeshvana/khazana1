@@ -50,7 +50,7 @@
             </style>
             <table  style="border-style: solid;border-width:1px;" width="100%">
                 <tr  style="border-style: solid;border-width:1px " width="100%">
-                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.warehouse_id.image_variant_1920)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.warehouse_id.product_image)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
                     </td>
                     <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden"><strong><h4></h4></strong>
                     </td>
@@ -66,8 +66,12 @@
              <table   style="border-style: solid;border-width:1px;border: 1px solid black;border-top:hidden" width="100%">
                 <tr style="width:100%;">
                 
-              <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"><span  t-field="doc.company_id.street"/>,
-                        <span t-field="doc.company_id.street2"/>,<span t-field="doc.company_id.state_id"/>,<span  t-field="doc.company_id.zip"/>,<span  t-field="doc.company_id.country_id"/>
+              <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%">
+
+                    <span  t-field="doc.warehouse_id.partner_id.street"/>,
+                    <span t-field="doc.warehouse_id.partner_id.street2"/>,<span t-field="doc.warehouse_id.partner_id.city"/>,
+                    <span  t-field="doc.warehouse_id.partner_id.zip"/>,<span  t-field="doc.warehouse_id.partner_id.country_id"/>
+
                 </td>
             </tr>
             </table>
@@ -163,7 +167,8 @@
  -->                           </t>
                          </t>
                          
-                        <strong  t-if="line.product_id.description_sale">Description:&#160;</strong><span t-field="line.product_id.description_sale"/>
+                        <strong  t-if="line.product_id.description_sale">Description:&#160;</strong><span t-field="line.product_id.description_sale"/><br/>
+                        <strong>Barcode:</strong>&#160;<span t-field="line.product_id.barcode"/>
 
 
 
@@ -218,7 +223,7 @@
              <tr style="border-style: solid;border: 1px solid black;border-width:1px;" width="100%">
                 <td colspan="3" style="border-style: solid;border-width:1px;border-bottom:hidden" width="50%"></td>
                 <td  colspan="2" style="font-size:12px;width:20%;border:1px solid black;">
-                    <span>Subtotal</span> 
+                    <strong><span>Sub Total</span></strong> 
                 </td>
                 <td colspan="1" style="width:10%;text-align:center"></td>
                 <td style="width:20%;text-align:right;font-size:12px">
@@ -338,7 +343,7 @@
                             Please Read above conditions before signing<br/>
                             .............................................<br/>
 
-                            Customer signature &amp;Date
+                            Customer signature &amp;&#160;Date
                     </td>
                 </tr>            
           </table>
