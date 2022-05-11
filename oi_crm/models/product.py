@@ -188,7 +188,15 @@ class Picking(models.Model):
                     for line in rec.move_ids_without_package:
                         if line.product_id:
                             if line.product_id.intransit:
-                                line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit ETA:" + rec.eta.strftime("%d/%m/%Y") + ' ' + rec.origin + ' ' + rec.container 
+                                if rec.eta:
+                                    eta = rec.eta.strftime("%d/%m/%Y")
+                                else:
+                                    eta = ''
+                                if rec.container:
+                                    container = rec.container
+                                else:
+                                    container = ''
+                                line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit ETA:" + eta + ' ' + rec.origin + ' ' + container  
             
     
     
