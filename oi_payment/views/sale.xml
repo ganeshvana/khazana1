@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">    
             	<xpath expr="//header" position="inside">
-            		<button name="open_cart_detail" type="object" string="Open Cart" attrs="{'invisible': ['|', ('website_id', '=', False),('state', 'not in', ['draft','sent'])]}"/>
+            		<button name="open_cart_detail" type="object" string="Open Cart" attrs="{'invisible': [('state', 'not in', ['draft','sent'])]}"/>
             		<button name="reserve_delivery" type="object" string="Reserve" attrs="{'invisible': [('reserved', '=', True)]}"/>
             		<button name="unreserve_delivery" type="object" string="Un Reserve" attrs="{'invisible': [('reserved', '=', False)]}"/>
             	</xpath>     
