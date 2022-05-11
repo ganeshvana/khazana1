@@ -28,14 +28,22 @@ class SaleOrder(models.Model):
                 if res.product_id.website_id.khazana == True:
                     if res.product_id.intransit:
                         res.product_id.product_tmpl_id.sold_units += res.product_uom_qty
-                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold'    
+                        if res.product_id.product_tmpl_id.eta:
+                            eta = res.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y")
+                        else:
+                            eta = ''  
+                        if res.product_id.product_tmpl_id.container:
+                            container = res.product_id.product_tmpl_id.container
+                        else:
+                            container = ''                        
+                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + eta + ' ' + container  
                         if res.product_id.product_tmpl_id.sold_units >= res.product_id.product_tmpl_id.po_units:
                             res.product_id.product_tmpl_id.allow_out_of_stock_order = False
                             res.product_id.product_tmpl_id.active = False
                 if res.product_id.website_id.khazana == False:
                     if res.product_id.intransit:
                         res.product_id.product_tmpl_id.sold_units += res.product_uom_qty
-                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold'    
+                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + eta + ' ' + container 
                         if res.product_id.product_tmpl_id.sold_units >= res.product_id.product_tmpl_id.po_units:
                             res.product_id.product_tmpl_id.allow_out_of_stock_order = False
                             res.product_id.product_tmpl_id.active = False

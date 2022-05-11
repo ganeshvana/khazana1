@@ -41,6 +41,8 @@ class Product(models.Model):
     sold_units = fields.Float("Sold in web")
     po_units = fields.Float("PO in web")
     website_name = fields.Char("Website Product Name", compute='compute_website_name', store=True)
+    eta = fields.Date('ETA')
+    container = fields.Char("Container")
     
     @api.depends('attribute_line_ids', 'name', 'default_code')
     def compute_website_name(self):
@@ -129,17 +131,19 @@ class Purchase(models.Model):
                             if categ:                                
                                 pline.product_id.public_categ_ids = [(4,categ.id)]
                             pline.product_id.product_tmpl_id.intransit = True
+                            pline.product_id.product_tmpl_id.eta = rec.date_planned
                             pline.product_id.product_tmpl_id.allow_out_of_stock_order = True
                             pline.product_id.product_tmpl_id.po_units = pline.product_qty
-                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + rec.date_planned.strftime("%d/%m/%Y")
+                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + pline.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y") + ' ' +  rec.name
                         if pline.product_id.website_id.khazana == False:
                             pline.product_id.intransit = True
                             if categ:
                                 pline.product_id.public_categ_ids = [(4,categ.id)]
                             pline.product_id.product_tmpl_id.intransit = True
+                            pline.product_id.product_tmpl_id.eta = rec.date_planned
                             pline.product_id.product_tmpl_id.allow_out_of_stock_order = True
                             pline.product_id.product_tmpl_id.po_units = pline.product_qty
-                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + rec.date_planned.strftime("%d/%m/%Y")
+                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + pline.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y") + ' ' + rec.name
         return res
                     
 class Picking(models.Model):
@@ -182,7 +186,7 @@ class Picking(models.Model):
     
     def write(self, vals):
         res = super(Picking, self).write(vals)
-        if 'eta' in vals:
+        if 'eta' or 'container' in vals:
             for rec in self:
                 if rec.move_ids_without_package:
                     for line in rec.move_ids_without_package:
@@ -196,6 +200,8 @@ class Picking(models.Model):
                                     container = rec.container
                                 else:
                                     container = ''
+                                line.product_id.product_tmpl_id.eta = rec.eta
+                                line.product_id.product_tmpl_id.container = rec.container
                                 line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit ETA:" + eta + ' ' + rec.origin + ' ' + container  
             
     
