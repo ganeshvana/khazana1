@@ -15,7 +15,7 @@
             </xpath>
             <xpath expr="//form/sheet/group/group/field[@name='payment_term_id']" position="after">
                 <field name="discount"/>
-                <button name="compute_discount" string="Update Discount" type="object" class="oe_highlight"/>
+                <button name="compute_discount" string="Closure" type="object" class="oe_highlight"/>
             </xpath>
             
         </field>

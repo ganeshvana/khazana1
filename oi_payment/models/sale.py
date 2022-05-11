@@ -61,6 +61,8 @@ class SaleOrder(models.Model):
     def open_cart_detail(self):
         self.website_id.sale_order_id = self.id
         self.action_draft()
+        if not self.access_token:
+            self.access_token = '1e4df4ed-4625-4df5-abc6-734379f712d0'
         baseurl = self.env.company.get_base_url() + '/shop/cart?access_token=' + self.access_token
         return {
             'type': 'ir.actions.act_url',

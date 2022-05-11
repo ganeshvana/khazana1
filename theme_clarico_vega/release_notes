@@ -1,0 +1,58 @@
+Version 15.0.2.0.0 - 20 Apr 22
+===================================
+Note:First upgrade emipro_theme_base and update theme.
+New Feature
+- Out Of Stock Label In Shop
+- Hide Variant Details and Product Description In Cart and Checkout Page
+- Color Variants In Shop Page
+- Easily Translate Website Desciption from the Backend In Product Page
+
+Functional Improvement
+- Speed Up the rendering Process of the Dynamic Sliders,Category Sliders,Brand Slider
+
+UI/UX Improvement
+- Overall Changes in the Shop Page Attributes Section Design
+- Improved the Banner Sliders for Mobile Views
+- Minor UI/UX Changes
+
+Version 15.0.1.0.6 - 28 Feb 22
+===================================
+Improvement
+
+- Minor UI/UX Changes.
+- Product Page Description Issue.
+
+Version 15.0.1.0.5 - 24 Dec 21
+===================================
+Improvement
+
+- Fix the Javascript issue in Category Slider.
+
+Version 15.0.1.0.4 - 11 Dec 21
+===================================
+Improvement
+
+- Fix the Product Builder Snippet click issue.
+
+Version 15.0.1.0.3 - 01 Dec 21
+===================================
+Improvement
+
+- Minor UI/UX Changes.
+
+Version 15.0.1.0.2 - 19 Nov 21
+===================================
+Improvement
+
+- Removed the Contact Us Snippet.
+
+Version 15.0.1.0.1 - 16 Nov 21
+===================================
+Improvement
+
+- Minor UI/UX Changes.
+
+Version 15.0.1.0.0 - 15 Nov 21
+===================================
+
+1. Initial release

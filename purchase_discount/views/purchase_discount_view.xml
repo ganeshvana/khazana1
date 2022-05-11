@@ -41,7 +41,7 @@
             </xpath>
             <xpath expr="//form/sheet/group/group/div[3]" position="after">
                 <field name="discount"/>
-                <button name="compute_discount" string="Update Discount" type="object" class="oe_highlight"/>
+                <button name="compute_discount" string="Closure" type="object" class="oe_highlight"/>
             </xpath>
             <xpath
                 expr="//field[@name='order_line']/form//field[@name='price_unit']"

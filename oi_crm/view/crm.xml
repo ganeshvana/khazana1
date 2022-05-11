@@ -134,9 +134,9 @@
 		<field name="inherit_id" ref="stock.view_picking_form" />
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='origin']" position="after">	
-				<field name="container" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>				
-				<field name="etd" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
-				<field name="eta" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
+				<field name="container" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
+				<field name="eta" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>				
+				<field name="etd" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
 				<field name="rfd" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
 				<field name="import_stage" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}" invisible="1"/>
 			</xpath>		
