@@ -1,6 +1,6 @@
 <odoo>
     <data>
-<template id="salequotation_report_external_layout">
+<template id="purchaseorder_report_external_layout">
             <div t-attf-class="header" t-att-style="report_header_style">
 
              <!--   <table  style="border-style: solid;border-width:1px;" width="100%">
@@ -31,8 +31,8 @@
                 </table>
             </div>
             </template>
-        <template id="report_quotation_report_template">
-            <t t-call="oi_sale_quotation.salequotation_report_external_layout">
+        <template id="report_purchase_report_template">
+            <t t-call="oi_sale_quotation.purchaseorder_report_external_layout">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <div class="page">
                 <style>
@@ -49,7 +49,7 @@
             </style>
             <table  style="border-style: solid;border-width:1px;" width="100%">
                 <tr  style="border-style: solid;border-width:1px " width="100%">
-                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.warehouse_id.product_image)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.picking_type_id.warehouse_id.product_image)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
                     </td>
                     <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden"><strong><h4></h4></strong>
                     </td>
@@ -67,9 +67,9 @@
                 
               <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%">
 
-                    <span  t-field="doc.warehouse_id.partner_id.street"/>,
-                    <span t-field="doc.warehouse_id.partner_id.street2"/>,<span t-field="doc.warehouse_id.partner_id.city"/>,
-                    <span  t-field="doc.warehouse_id.partner_id.zip"/>,<span  t-field="doc.warehouse_id.partner_id.country_id"/>
+                    <span  t-field="doc.picking_type_id.warehouse_id.partner_id.street"/>,
+                    <span t-field="doc.picking_type_id.warehouse_id.partner_id.street2"/>,<span t-field="doc.picking_type_id.warehouse_id.partner_id.city"/>,
+                    <span  t-field="doc.picking_type_id.warehouse_id.partner_id.zip"/>,<span  t-field="doc.picking_type_id.warehouse_id.partner_id.country_id"/>
 
                 </td>
             </tr>
@@ -120,7 +120,7 @@
             <table   style="border-style: solid;border-width:1px;border: 1px solid black;border-top:hidden" width="100%">
                 <tr  style="width:100%">
                 
-                <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"><strong>QUOTATION</strong>
+                <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center" width="100%"><strong>PURCHASE ORDER</strong>
                 </td>
             </tr>
             </table>
@@ -166,8 +166,8 @@
  -->                           </t>
                          </t>
                          
-                        <strong  t-if="line.product_id.description_sale">Description:&#160;</strong><span t-field="line.product_id.description_sale"/><br/>
-                        <strong>Barcode:</strong>&#160;<span t-field="line.product_id.barcode"/>
+                        <strong  t-if="line.product_id.description_purchase">Description:&#160;</strong><span t-field="line.product_id.description_purchase"/><br/>
+                        <strong t-if="line.product_id.barcode">Barcode:</strong>&#160;<span t-field="line.product_id.barcode"/>
 
 
 
@@ -353,7 +353,7 @@
                     
                 </tr>
                 <tr>
-                     <td style="border:none;font-size:12px;" width="100%"><span t-field="doc.sale_term"/></td>
+                     <td style="border:none;font-size:12px;" width="100%"><span t-field="doc.purchase_term"/></td>
 
                 </tr>
                 <br/>
@@ -371,10 +371,10 @@
         </t> 
      </template>
      
-    <template id="quotation_report_report">
+    <template id="purchase_report_report">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
-                    <t t-call="oi_sale_quotation.report_quotation_report_template" t-lang="doc.partner_id.lang"/>
+                    <t t-call="oi_sale_quotation.report_purchase_report_template" t-lang="doc.partner_id.lang"/>
                 </t>
             </t>
         </template>
