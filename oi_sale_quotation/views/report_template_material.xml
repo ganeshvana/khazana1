@@ -64,11 +64,11 @@
             <table   style="border-style: solid;border-width:1px;" width="100%">
 
               <tr  style="border-style: solid;border-width:1px " width="100%">
-                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.product_image)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.product_image)" style="max-height: 3cm; max-width: 3cm;padding-top:3px;padding-bottom:3px" align="left"/>
                     </td>
                     <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden">
                     </td>
-                    <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 2cm; max-width: 2cm;padding-top:3px;padding-bottom:3px" align="right"/>
                     </td>
                 </tr>
 
@@ -94,9 +94,9 @@
                 <tr style="width:100%">
                 
               <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="100%"> 
-                        PHONE:<span t-field="doc.company_id.phone"/>,
-                        URL:<span  t-field="doc.company_id.website"/>,
-                        E-MAIL:<span  t-field="doc.company_id.email"/>
+                        PHONE:&#160;<span t-field="doc.company_id.phone"/>,
+                        URL:&#160;<span  t-field="doc.company_id.website"/>,
+                        E-MAIL:&#160;<span  t-field="doc.company_id.email"/>
                 </td>
             </tr>
             </table>
@@ -128,8 +128,8 @@
                     <td style="width:30%;text-align:center;font-size:12px">
                         <span  t-field="doc.partner_id.street"/>,
                         <span t-field="doc.partner_id.street2"/>,
-                        <span t-field="doc.partner_id.city"/>,
-                        <span t-field="doc.partner_id.state_id"/></td>
+                        <span t-field="doc.partner_id.city"/>
+                    </td>
 
                     <td style="width:10%;text-align:center;font-size:12px"><span t-field="doc.partner_id.state_id"/></td>
                     <td style="width:10%;text-align:center;font-size:12px"><span t-field="doc.partner_id.country_id"/></td>
@@ -139,7 +139,7 @@
 
 
 
-             <table  style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
+             <!-- <table  style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
                 <tr style="width:100%;border-style: solid;border-width:1px;">
                     
                     <td style="width:20%;text-align:center;font-size:12px"><strong>Transfer Order Date</strong></td>
@@ -163,7 +163,7 @@
                     
                 </tr>
             </table>
-
+ -->
 
  <table  style="border-style: solid;border-width:1px;border-top:hidden" width="100%">
                 <tr style="width:100%;border-style: solid;border-width:1px;">
@@ -205,7 +205,7 @@
                  <t t-foreach="doc.move_line_ids_without_package" t-as="package">
                  <tr>
                     <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"><span t-esc="package_index + 1"/></td>
-                    <td style="border-style: solid;border-width:1px;text-align:left;font-size:12px" width="50%">
+                    <td style="border-style: solid;border-width:1px;text-align:left;font-size:10px;vertical-align:top" width="50%">
                        <span t-field="package.product_id"/>
                        <br/>
                        
@@ -223,10 +223,10 @@
                     <strong  t-if="package.product_id.description_sale">Description:&#160;</strong><span t-field="package.product_id.description_sale"/>
 
                 </td>
-                    <!-- <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"> <img t-att-src="image_data_uri(package.product_id.product_tmpl_id.image_1920)" style="max-height: 1.5cm; max-width: 1.2cm;text-align:left" align="left"/></td>
- -->
-                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="20%"><img t-att-src="image_data_uri(package.product_id.product_tmpl_id.image_1920)" style="max-height: 3cm; max-width: 3cm;text-align:left" align="center"/></td>
-                   <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="20%"><span t-esc="package.qty_done"/></td>
+                     
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:10px" width="20%"><img t-att-src="image_data_uri(package.product_id.product_tmpl_id.image_1920)" style="max-height: 1.4cm; max-width: 1.4cm;padding-top:3px;padding-bottom:3px" align="center"/></td>
+                   
+                   <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px;vertical-align:middle" width="20%"><span t-esc="package.qty_done"/></td>
                    
                 </tr>
             </t>
@@ -262,7 +262,7 @@
              </td>
              <td style="width:33.33%;text-align:center;border-left:hidden;border-right:hidden;font-size:12px">Security Check &amp;Stamp
              </td>
-             <td style="width:33.33%;text-align:right;border-right:hidden;font-size:12px">Signature
+             <td style="width:33.33%;text-align:center;border-right:hidden;font-size:12px">Signature
              </td>
 
          </tr>   
@@ -272,7 +272,7 @@
              </td>
              <td style="width:33.33%;text-align:center;border-left:hidden;border-right:hidden;font-size:12px">
              </td>
-             <td style="width:33.33%;text-align:right;border-left:hidden;border-right:hidden;font-size:12px">Date: &#160;
+             <td style="width:33.33%;text-align:center;border-left:hidden;border-right:hidden;font-size:12px">Date: &#160;
              </td>
 
          </tr>  

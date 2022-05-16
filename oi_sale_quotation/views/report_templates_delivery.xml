@@ -48,11 +48,11 @@
             
            <table  style="border-style: solid;border-width:1px;" width="100%">
                 <tr  style="border-style: solid;border-width:1px " width="100%">
-                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.product_image)" style="max-height: 4cm; max-width: 4cm;" align="left"/>
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left;width:40"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.product_image)" style="max-height: 3cm; max-width: 3cm;padding-top:3px;padding-bottom:3px" align="left"/>
                     </td>
-                    <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden"><strong><h4>Delivery Challan</h4></strong>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;text-align:left;border-left:hidden;width:30;vertical-align:middle"><strong><h4>Delivery Challan</h4></strong>
                     </td>
-                    <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 4cm; max-width: 4cm;" align="right"/>
+                    <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left;width:30"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 2cm; max-width: 2cm;padding-top:3px;padding-bottom:3px" align="right"/>
                     </td>
                 </tr>
 
@@ -147,8 +147,8 @@
 
                 </td>
                     <!-- <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="10%"> <img t-att-src="image_data_uri(package.product_id.product_tmpl_id.image_1920)" style="max-height: 1.5cm; max-width: 1.2cm;text-align:left" align="left"/></td> -->
-                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="20%"><span t-field="package.product_id.l10n_in_hsn_code"/></td>
-                   <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px" width="20%"><span t-esc="package.qty_done"/></td>
+                    <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px;padding-top:3px;padding-bottom:3px;vertical-align:middle" width="20%"><span t-field="package.product_id.l10n_in_hsn_code"/></td>
+                   <td style="border-style: solid;border-width:1px;text-align:center;font-size:12px;padding-top:3px;padding-bottom:3px;vertical-align:middle" width="20%"><span t-esc="package.qty_done"/></td>
                    
                 </tr>
             </t>
@@ -194,7 +194,7 @@
                             Customer signature &amp;Date
                     </td>
                 </tr>            
-          </table>
+        </table>
 
         </div>
         </t> 
