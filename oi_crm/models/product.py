@@ -202,7 +202,7 @@ class Picking(models.Model):
                                     container = ''
                                 line.product_id.product_tmpl_id.eta = rec.eta
                                 line.product_id.product_tmpl_id.container = rec.container
-                                line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit ETA:" + eta + ' ' + rec.origin + ' ' + container  
+                                line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit ETA:" + eta + ' ' + container  
             
     
     
