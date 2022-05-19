@@ -62,7 +62,7 @@ class Product(models.Model):
                     att += line.value_ids[0].name + ','
                 att = att[:-1]    
                 wname += '(' + att + ')'
-            result.append((line.id, wname))
+            result.append((rec.id, wname))
         return result
         
     
