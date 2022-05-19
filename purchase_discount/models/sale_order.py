@@ -36,14 +36,14 @@ class SaleOrder(models.Model):
                             container = res.product_id.product_tmpl_id.container
                         else:
                             container = ''                        
-                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + eta + ' ' + container  
+                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + '\n' + 'ETA: ' +  eta + '\n' + 'Container: ' +  container  
                         if res.product_id.product_tmpl_id.sold_units >= res.product_id.product_tmpl_id.po_units:
                             res.product_id.product_tmpl_id.allow_out_of_stock_order = False
                             res.product_id.product_tmpl_id.active = False
                 if res.product_id.website_id.khazana == False:
                     if res.product_id.intransit:
                         res.product_id.product_tmpl_id.sold_units += res.product_uom_qty
-                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + eta + ' ' + container 
+                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + '\n' + 'ETA: ' + eta + '\n' + 'Container: ' + container 
                         if res.product_id.product_tmpl_id.sold_units >= res.product_id.product_tmpl_id.po_units:
                             res.product_id.product_tmpl_id.allow_out_of_stock_order = False
                             res.product_id.product_tmpl_id.active = False

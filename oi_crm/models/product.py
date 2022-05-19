@@ -134,7 +134,7 @@ class Purchase(models.Model):
                             pline.product_id.product_tmpl_id.eta = rec.date_planned
                             pline.product_id.product_tmpl_id.allow_out_of_stock_order = True
                             pline.product_id.product_tmpl_id.po_units = pline.product_qty
-                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + pline.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y") + ' ' +  rec.name
+                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + '\n' + 'ETA: ' + pline.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y") +  '\n' + 'PO: ' + rec.name
                         if pline.product_id.website_id.khazana == False:
                             pline.product_id.intransit = True
                             if categ:
@@ -143,7 +143,7 @@ class Purchase(models.Model):
                             pline.product_id.product_tmpl_id.eta = rec.date_planned
                             pline.product_id.product_tmpl_id.allow_out_of_stock_order = True
                             pline.product_id.product_tmpl_id.po_units = pline.product_qty
-                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + pline.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y") + ' ' + rec.name
+                            pline.product_id.out_of_stock_message = str(pline.product_id.product_tmpl_id.po_units) + ' ' + str(pline.product_id.uom_po_id.name)+ " In Transit" + '\n' + 'ETA: ' + pline.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y") +  '\n' + 'PO: ' + rec.name
         return res
                     
 class Picking(models.Model):
@@ -202,7 +202,7 @@ class Picking(models.Model):
                                     container = ''
                                 line.product_id.product_tmpl_id.eta = rec.eta
                                 line.product_id.product_tmpl_id.container = rec.container
-                                line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit ETA:" + eta + ' ' + container  
+                                line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit" + '\n' + 'ETA: ' + eta + '\n' + 'Container: ' + container  
             
     
     

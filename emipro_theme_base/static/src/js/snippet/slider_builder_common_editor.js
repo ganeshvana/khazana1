@@ -253,7 +253,7 @@ odoo.define('slider.builder.common.editor', function (require) {
             $(ev.currentTarget).addClass('active')
             $(".product-configure").removeClass('d-none')
             name= $(ev.currentTarget).attr('data-value')
-            this.sliderTarget.attr("data-name",name)
+            /*this.sliderTarget.attr("data-name",name)*/
             if (name === 'custom-domain' || name === 'brand-slider' || name === 'category-slider'){
             	$(".product_configure_model .div_sort_by").show()
             } else {

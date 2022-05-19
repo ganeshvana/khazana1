@@ -3,9 +3,8 @@ class res_partner(models.Model):
     _inherit = "res.partner"
 
     credit_limit = fields.Integer(string="Credit Limit")
-    credit_limit_applicable = fields.Boolean("Credit Limit Applicable")
-    used_credit_limit = fields.Float('Used Credit Limit', compute='compute_credit_limit')
-    
+    credit_limit_applicable = fields.Boolean("Credit Limit Applicable", default=True)
+    used_credit_limit = fields.Float('Used Credit Limit', compute='compute_credit_limit')    
     remaining_creditlimit = fields.Float('Remaining Credit Limit', compute='compute_credit_limit')
 
                 
