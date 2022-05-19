@@ -58,9 +58,9 @@ class Product(models.Model):
             if rec.attribute_line_ids:
                 att = ''
                 for line in rec.attribute_line_ids:
-                    att += line.value_ids[0].name + ','
-                att = att[:-1]    
-                wname += '(' + att + ')'
+                    att += line.value_ids[0].name + ', '
+                att = att[:-2]    
+                wname += ' (' + att + ')'
             result.append((rec.id, wname))
         return result
         
