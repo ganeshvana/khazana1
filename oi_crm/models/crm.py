@@ -174,6 +174,21 @@ class Lead(models.Model):
     ('3', 'Very Hot'),],
          index=True,
         default='0')
+    quotation_amount_total = fields.Monetary(compute='_compute_qotation_amount', string="Quote Amount", currency_field='company_currency', store=True)
+    
+    @api.depends('order_ids.state', 'order_ids.currency_id', 'order_ids.amount_untaxed', 'order_ids.date_order', 'order_ids.company_id')
+    def _compute_qotation_amount(self):
+        for lead in self:
+            total = 0.0
+            quotation_cnt = 0
+            sale_order_cnt = 0
+            company_currency = lead.company_currency or self.env.company.currency_id
+            for order in lead.order_ids:
+                if order.state in ('draft', 'sent'):
+                    quotation_cnt += 1
+                    total += order.currency_id._convert(
+                        order.amount_untaxed, company_currency, order.company_id, order.date_order or fields.Date.today())
+            lead.quotation_amount_total = total
     
     def need_analysis_form(self):
         survey = self.env['survey.survey'].search([('title', '=', 'Need Analysis Form')])
@@ -270,6 +285,14 @@ class Partner(models.Model):
             if res.customer_rank > 0:
                 seq = self.env['ir.sequence'].next_by_code('customer.code.seq') or '/'
                 res.ref = seq  
+                mail_template_id = self.env.ref('oi_crm.mail_template_customer_creation')
+                self.env['mail.template'].browse(mail_template_id.id).send_mail(res.id, force_send=True)
+        return result
+    
+    def write(self, vals):
+        result = super(Partner, self).write(vals)
+        for res in self:
+            if 'email' in vals:
                 mail_template_id = self.env.ref('oi_crm.mail_template_customer_creation')
                 self.env['mail.template'].browse(mail_template_id.id).send_mail(res.id, force_send=True)
         return result

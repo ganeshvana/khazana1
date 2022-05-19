@@ -60,6 +60,16 @@ class PickingBulkUpdate(models.TransientModel):
         return True
     
     
+class PrintPackage(models.TransientModel):
+    _name = 'stock.picking.print'
+    _description = 'Print Package'
+    
+    count = fields.Integer("Package Count")
+    picking_id = fields.Many2one('stock.picking', "Picking")
+    partner_id = fields.Many2one('res.partner', "Partner")
+    
+        
+    
 
     
 

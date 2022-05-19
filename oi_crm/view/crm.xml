@@ -61,7 +61,7 @@
         <field name="arch" type="xml" >
         	<xpath expr= "//field[@name='expected_revenue']" position ="after">
                 <field name="probability"/>
-                <field name="sale_amount_total" string="Sale Amount"/>
+                <field name="quotation_amount_total" string="Quote Amount"/>
                 <field name="interested_in"/>
             </xpath>
         </field>
@@ -98,7 +98,7 @@
                          <field name="recurring_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/>
                          <field name="recurring_plan"/>
                      </t>
-                     <div>Quote Amount <field name="sale_amount_total" widget="monetary" options="{'currency_field': 'company_currency'}"/></div>
+                     <div>Quote Amount <field name="quotation_amount_total" widget="monetary" options="{'currency_field': 'company_currency'}"/></div>
                  </div>
         	</xpath>
         </field>
@@ -133,6 +133,9 @@
 		<field name="model">stock.picking</field>
 		<field name="inherit_id" ref="stock.view_picking_form" />
 		<field name="arch" type="xml">
+			<xpath expr="//button[@name='do_print_picking']" position="after">
+				<button name="open_package" string="Print Package" attrs="{'invisible': [('state', '!=', 'done')]}" type="object" data-hotkey="o"/>
+			</xpath>
 			<xpath expr="//field[@name='origin']" position="after">	
 				<field name="container" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>	
 				<field name="eta" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>				

@@ -48,10 +48,11 @@
             
            <table  style="border-style: solid;border-width:1px;" width="100%">
                 <tr  style="border-style: solid;border-width:1px " width="100%">
-                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left;width:40"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.product_image)" style="max-height: 3cm; max-width: 3cm;padding-top:3px;padding-bottom:3px" align="left"/>
+                    <td  style="font-size:12px;border-style: solid;border-width:1px;border-right:hidden:text-align:left;width:30"><img t-att-src="image_data_uri(doc.so_id.warehouse_id.product_image)" style="max-height: 3cm; max-width: 3cm;padding-top:3px;padding-bottom:3px" align="left"/>
                     </td>
-                    <td style="font-size:12px;border-style: solid;border-width:1px;text-align:left;border-left:hidden;width:30;vertical-align:middle"><strong><h4>Delivery Challan</h4></strong>
+                     <td style="font-size:12px;border-style: solid;border-width:1px;text-align:center;border-left:hidden;width:40;vertical-align:middle"><strong><h4>Delivery Challan</h4></strong>
                     </td>
+                    
                     <td style="font-size:12px;border-style: solid;border-width:1px;border-left:hidden;text-align:left;width:30"><img t-att-src="image_data_uri(doc.company_id.logo)" style="max-height: 2cm; max-width: 2cm;padding-top:3px;padding-bottom:3px" align="right"/>
                     </td>
                 </tr>

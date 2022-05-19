@@ -43,9 +43,9 @@ class Payment(models.Model):
         res = super(Payment, self).action_post()
         if self.payment_type == 'inbound':
             if self.sale_order_id:
-                self.sale_order_id.action_confirm()
-            if self.sale_order_id and self.payment_term_line_ids:
-                
+                if self.sale_order_id.state in ['draft', 'sent']:
+                    self.sale_order_id.action_confirm()
+            if self.sale_order_id and self.payment_term_line_ids:                
                 for line in self.payment_term_line_ids:
                     priceline = self.sale_order_id.payment_detail_ids.filtered(lambda m: m.payment_term_line_id.id == line.id)
                     if priceline:

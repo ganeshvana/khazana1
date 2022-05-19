@@ -32,6 +32,7 @@ class Variant(models.Model):
     
 class Product(models.Model):
     _inherit = 'product.template'
+    _rec_name = 'website_name'
 
     intransit = fields.Boolean("In Transit")
     create_combination_variant = fields.Boolean("Create Variant Combination")
@@ -43,6 +44,20 @@ class Product(models.Model):
     website_name = fields.Char("Website Product Name", compute='compute_website_name', store=True)
     eta = fields.Date('ETA')
     container = fields.Char("Container")
+    brand = fields.Char("Brand", compute='compute_brand', store=True)
+    
+    
+    @api.depends('attribute_line_ids', 'attribute_line_ids.attribute_id')
+    def compute_brand(self):
+        for rec in self:
+            for line in rec.attribute_line_ids:
+                if line.attribute_id:
+                    if line.attribute_id.name == 'Brand':
+                        rec.brand = line.value_ids[0].name
+                    else:
+                        rec.brand = ''
+                else:
+                    rec.brand = ''
     
     @api.depends('attribute_line_ids', 'name', 'default_code')
     def compute_website_name(self):
@@ -184,6 +199,21 @@ class Picking(models.Model):
                 self.env['mail.template'].browse(mail_template_id.id).send_mail(rec.id, force_send=True)
             return res   
     
+    def open_package(self):
+        view = self.env.ref('oi_crm.view_stock_picking_package_print')
+        self = self.with_context(default_partner_id = self.partner_id.id,default_picking_id = self.id)        
+        return {
+            'name': 'Package Print',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking.print',
+            'views': [(view.id, 'form')],
+            'target': 'new',
+            'context': self._context,
+        }
+        
+        
     def write(self, vals):
         res = super(Picking, self).write(vals)
         if 'eta' or 'container' in vals:
