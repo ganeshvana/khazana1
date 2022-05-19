@@ -47,6 +47,25 @@ class Product(models.Model):
     brand = fields.Char("Brand", compute='compute_brand', store=True)
     
     
+    def name_get(self):
+        result = []
+        string = ''
+        for rec in self:
+            wname = ''
+            if rec.default_code:
+                wname += rec.default_code + ' '
+            if rec.name:
+                wname += rec.name
+            if rec.attribute_line_ids:
+                att = ''
+                for line in rec.attribute_line_ids:
+                    att += line.value_ids[0].name + ','
+                att = att[:-1]    
+                wname += '(' + att + ')'
+            result.append((line.id, name))
+        return result
+        
+    
     @api.depends('attribute_line_ids', 'attribute_line_ids.attribute_id')
     def compute_brand(self):
         for rec in self:
