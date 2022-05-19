@@ -49,7 +49,6 @@ class Product(models.Model):
     
     def name_get(self):
         result = []
-        string = ''
         for rec in self:
             wname = ''
             if rec.default_code:
