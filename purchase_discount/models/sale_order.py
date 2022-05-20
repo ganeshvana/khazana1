@@ -23,6 +23,8 @@ class SaleOrder(models.Model):
                 
     def action_confirm(self):
         result = super(SaleOrder, self).action_confirm()
+        eta = ''  
+        container = ''
         for rec in self:
             for res in rec.order_line:
                 if res.product_id.website_id.khazana == True:
