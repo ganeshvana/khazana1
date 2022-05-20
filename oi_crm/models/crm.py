@@ -263,7 +263,7 @@ class Lead(models.Model):
             for rec in website:
                 rec.crm_id = self.id
                 rec.sale_order_id = False
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         record_url = base_url + "/shop" 
         return {
             'name': 'Goto Website',
