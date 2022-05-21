@@ -188,7 +188,6 @@ class Purchase(models.Model):
                                 <p>ETA: %s </p> <br/>
                                 <p>PO: %s </p> <br/>
                                     """ %(str(pline.product_id.product_tmpl_id.po_units),str(pline.product_id.uom_po_id.name), pline.product_id.product_tmpl_id.eta.strftime("%d/%m/%Y"), rec.name)
-        
                             pline.product_id.out_of_stock_message = custom_body
         return res
                     
@@ -247,6 +246,8 @@ class Picking(models.Model):
         
     def write(self, vals):
         res = super(Picking, self).write(vals)
+        eta = container = ''
+        custom_body = """"""
         if 'eta' or 'container' in vals:
             for rec in self:
                 if rec.move_ids_without_package:
@@ -263,7 +264,13 @@ class Picking(models.Model):
                                     container = ''
                                 line.product_id.product_tmpl_id.eta = rec.eta
                                 line.product_id.product_tmpl_id.container = rec.container
-                                line.product_id.product_tmpl_id.out_of_stock_message = str(line.product_id.product_tmpl_id.po_units) + ' ' + str(line.product_id.uom_po_id.name)+ " In Transit" + '\n' + 'ETA: ' + eta + '\n' + 'Container: ' + container  
+                                custom_body  = """
+                                <p> %s %s In Transit</p> <br/>
+                                <p>ETA: %s </p> <br/>
+                                <p>Container: %s </p> <br/>
+                                    """ %(str(line.product_id.product_tmpl_id.po_units),str(line.product_id.uom_po_id.name), eta, container)
+                            
+                                line.product_id.product_tmpl_id.out_of_stock_message = custom_body   
             
     
     

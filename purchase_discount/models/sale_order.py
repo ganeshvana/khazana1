@@ -25,6 +25,7 @@ class SaleOrder(models.Model):
         result = super(SaleOrder, self).action_confirm()
         eta = ''  
         container = ''
+        custom_body = """"""
         for rec in self:
             for res in rec.order_line:
                 if res.product_id.website_id.khazana == True:
@@ -37,15 +38,26 @@ class SaleOrder(models.Model):
                         if res.product_id.product_tmpl_id.container:
                             container = res.product_id.product_tmpl_id.container
                         else:
-                            container = ''                        
-                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + '\n' + 'ETA: ' +  eta + '\n' + 'Container: ' +  container  
+                            container = ''        
+                        custom_body  = """
+                                <p> %s %s In Transit %s %s Sold</p> <br/>
+                                <p>ETA: %s </p> <br/>
+                                <p>Container: %s </p> <br/>
+                                    """ %(str(res.product_id.product_tmpl_id.po_units) ,str(res.product_id.uom_po_id.name), str(res.product_id.product_tmpl_id.sold_units), str(res.product_id.uom_id.name), eta, container)                
+                        res.product_id.out_of_stock_message = custom_body  
                         if res.product_id.product_tmpl_id.sold_units >= res.product_id.product_tmpl_id.po_units:
                             res.product_id.product_tmpl_id.allow_out_of_stock_order = False
                             res.product_id.product_tmpl_id.active = False
                 if res.product_id.website_id.khazana == False:
                     if res.product_id.intransit:
                         res.product_id.product_tmpl_id.sold_units += res.product_uom_qty
-                        res.product_id.out_of_stock_message = str(res.product_id.product_tmpl_id.po_units) + ' ' + str(res.product_id.uom_po_id.name)+ " In Transit" + ' ' + str(res.product_id.product_tmpl_id.sold_units) + ' ' + str(res.product_id.uom_id.name) +  ' Sold' + '\n' + 'ETA: ' + eta + '\n' + 'Container: ' + container 
+                        custom_body  = """
+                                <p> %s %s In Transit %s %s Sold</p> <br/>
+                                <p>ETA: %s </p> <br/>
+                                <p>Container: %s </p> <br/>
+                                    """ %(str(res.product_id.product_tmpl_id.po_units) ,str(res.product_id.uom_po_id.name), str(res.product_id.product_tmpl_id.sold_units), str(res.product_id.uom_id.name), eta, container)                
+                        res.product_id.out_of_stock_message = custom_body
+                        res.product_id.out_of_stock_message = custom_body 
                         if res.product_id.product_tmpl_id.sold_units >= res.product_id.product_tmpl_id.po_units:
                             res.product_id.product_tmpl_id.allow_out_of_stock_order = False
                             res.product_id.product_tmpl_id.active = False
