@@ -34,7 +34,6 @@ class SaleOrder(models.Model):
             if not line.product_id.bom_ids:
                 raise UserError(_('There is no BOM attached for the product.'))
         return res
-       
         
 class Picking(models.Model):
     _inherit = "stock.picking"
