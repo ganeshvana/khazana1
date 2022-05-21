@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="action_report_returndeliverychallan_report"
+                string="Return Delivery Challan"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                file="oi_sale_quotation.returndeliverychallan_report_report"
+                name="oi_sale_quotation.returndeliverychallan_report_report"
+        />
+    </data>
+</odoo>
