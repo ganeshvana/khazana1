@@ -10,6 +10,8 @@ class Helpdesk(models.Model):
 class project(models.Model):
     _inherit = 'project.project'    
     
+    template = fields.Boolean("Template")
+    
     @api.model
     def create(self, vals):
         res = super(project, self).create(vals) 

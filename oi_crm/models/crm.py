@@ -165,6 +165,8 @@ class SurveyAns(models.Model):
 class Lead(models.Model):
     _inherit = 'crm.lead'
     
+    
+    project_id = fields.Many2one('project.project', "Project")
     interested_in = fields.Selection([('loose_furniture','Loose Furniture'),('fixed_furniture','Fixed Furniture'),('full_house','Full House')], "Interested In")
     crm_team_ids = fields.Many2many('crm.team', 'team_lead_rel', 'team_id', 'lead_id', "Sale Teams")
     survey_id = fields.Many2one('survey.survey', "Need Analysis Form")
@@ -221,10 +223,37 @@ class Lead(models.Model):
         view_form_id = self.env.ref('project.edit_project').id
         view_kanban_id = self.env.ref('project.view_project_kanban').id
         projects = []
+        if self.project_id:
+            projects.append(self.project_id.id)
         for quotation in self.order_ids:
             if quotation.project_ids:
                 for project in quotation.project_ids:
                     projects.append(project.id)
+        if not projects :
+            projecttemp = self.env['project.project'].search([('template', '=', True)], limit=1)
+            values = {
+                'partner_id': self.partner_id.id,
+                'active': True,
+                'company_id': self.company_id.id,
+                'template': False
+                }
+            if projecttemp:
+                values['name'] = self.partner_id.name
+                project = projecttemp.copy(values)
+                project.tasks.write({
+                    # 'sale_line_id': self.id,
+                    'partner_id': self.partner_id.id,
+                    'email_from': self.partner_id.email,
+                })
+                # duplicating a project doesn't set the SO on sub-tasks
+            #     project.tasks.filtered(lambda task: task.parent_id != False).write({
+            #         'sale_line_id': self.id,
+            #         'sale_order_id': self.order_id,
+            #     })
+            # else:
+                # project = self.env['project.project'].create(values)
+                self.project_id = project.id
+                projects.append(project.id)
         action = {
             'type': 'ir.actions.act_window',
             'domain': [('id', 'in', projects)],

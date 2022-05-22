@@ -37,7 +37,7 @@ class WebsiteSale(http.Controller):
 
          - UDPATE ME
         """
-        print(request, "request-----")
+        print(request, "request--444444444444444444444---")
         if sale_order_id is None:
             order = request.website.sale_get_order()
         else:
@@ -56,7 +56,7 @@ class WebsiteSale(http.Controller):
             return request.redirect('/shop')
 
         if order and not order.amount_total and not tx:
-            order.with_context(send_email=False).action_confirm()
+            # order.with_context(send_email=False).action_confirm()
             return request.redirect(order.get_portal_url())
 
         # clean context and session, then redirect to the confirmation page
