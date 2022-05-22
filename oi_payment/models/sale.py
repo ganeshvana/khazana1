@@ -13,6 +13,10 @@ class SaleOrder(models.Model):
     def create(self, vals):
         res = super(SaleOrder, self).create(vals)
         res.state = 'draft'
+        if res.message_follower_ids:
+                for line in res.message_follower_ids:
+                    if line.partner_id == res.partner_id:
+                        line.sudo().unlink()
         if res.payment_term_id:
             payterm_vals = []
             if res.payment_detail_ids:
