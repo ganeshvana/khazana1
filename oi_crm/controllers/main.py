@@ -37,6 +37,7 @@ class WebsiteSale(http.Controller):
 
          - UDPATE ME
         """
+        print(request, "request-----")
         if sale_order_id is None:
             order = request.website.sale_get_order()
         else:
@@ -62,11 +63,11 @@ class WebsiteSale(http.Controller):
         request.website.sale_reset()
         if tx and tx.state == 'draft':
             return request.redirect('/shop')
-        if request.website.crm_id and order:
-            order.opportunity_id = request.website.crm_id.id
-            order.partner_id = request.website.crm_id.partner_id.id
+        if request.env.user.crm_id and order:
+            order.opportunity_id = request.env.user.crm_id.id
+            order.partner_id = request.env.user.crm_id.partner_id.id
             order.state = 'draft'
-            addr = request.website.crm_id.partner_id.address_get(['delivery', 'invoice'])
+            addr = request.env.user.crm_id.partner_id.address_get(['delivery', 'invoice'])
             order.partner_invoice_id = addr['invoice']
             order.partner_shipping_id = addr['delivery']
         PaymentPostProcessing.remove_transactions(tx)

@@ -18,7 +18,7 @@ class Website(models.Model):
         :returns: browse record for the current sales order
         """
         self.ensure_one()
-        partner = self.env.user.partner_id
+        partner = self.env.user.crm_partner_id
         sale_order_id = request.session.get('sale_order_id')
         check_fpos = False
         if not sale_order_id and not self.env.user._is_public():
@@ -140,7 +140,7 @@ class Website(models.Model):
                     sale_order._cart_update(product_id=line.product_id.id, line_id=line.id, add_qty=0)
 
         if not sale_order:
-            sale_order = self.sale_order_id
+            sale_order = self.env.user.sale_order_id
         return sale_order
 
 class Survey(models.Model):
@@ -258,11 +258,14 @@ class Lead(models.Model):
         return action
     
     def redirect_to_website(self):
-        website = self.env['website'].search([])
-        if website:
-            for rec in website:
-                rec.crm_id = self.id
-                rec.sale_order_id = False
+        # website = self.env['website'].search([])
+        # if website:
+        #     for rec in website:
+        #         rec.crm_id = self.id
+        #         rec.sale_order_id = False
+        self.env.user.crm_id = self.id
+        self.env.user.sale_order_id = False
+        self.env.user.crm_partner_id = self.partner_id.id
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         record_url = base_url + "/shop" 
         return {

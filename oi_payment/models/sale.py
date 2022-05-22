@@ -1,6 +1,12 @@
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError
 
+class Users(models.Model):
+    _inherit = "res.users"
+    
+    crm_partner_id = fields.Many2one('res.partner', "CRM Partner")
+    sale_order_id = fields.Many2one('sale.order', "Sale Order")
+    crm_id = fields.Many2one('crm.lead', "CRM")
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -8,6 +14,7 @@ class SaleOrder(models.Model):
     payment_detail_ids = fields.One2many('payment.details', 'sale_order_id',"Payment Details")
     crm_stage_id = fields.Many2one('crm.stage', "CRM Stage")
     reserved = fields.Boolean("Reserved")
+    crm_partner_id = fields.Many2one('res.partner', "CRM Partner")
             
     @api.model
     def create(self, vals):
@@ -63,7 +70,7 @@ class SaleOrder(models.Model):
         return result
     
     def open_cart_detail(self):
-        self.website_id.sale_order_id = self.id
+        self.env.user.sale_order_id = self.id
         self.action_draft()
         if not self.access_token:
             self.access_token = '1e4df4ed-4625-4df5-abc6-734379f712d0'
