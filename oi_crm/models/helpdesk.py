@@ -11,6 +11,7 @@ class project(models.Model):
     _inherit = 'project.project'    
     
     template = fields.Boolean("Template")
+    crm_id = fields.Many2one('crm.lead', "Lead")
     
     @api.model
     def create(self, vals):
@@ -29,7 +30,7 @@ class project(models.Model):
         view_form_id = self.env.ref('survey.survey_user_input_view_form').id
         tree_form_id = self.env.ref('survey.survey_user_input_view_tree').id
         answer = []
-        crm = self.sale_order_id.opportunity_id
+        crm = self.crm_id
         if crm:
             answer = self.env['survey.user_input'].search([('crm_id', '=', crm.id)])
             action = {
@@ -40,7 +41,7 @@ class project(models.Model):
                 'res_model': 'survey.user_input',
             }
             if len(answer) == 1:
-                action.update({'views': [(view_form_id, 'form')], 'res_id': answer[0]})
+                action.update({'views': [(view_form_id, 'form')], 'res_id': answer[0].id})
             else:
                 action['views'] = [(tree_form_id, 'tree'), (view_form_id, 'form')]
             return action
@@ -68,7 +69,7 @@ class Task(models.Model):
         view_form_id = self.env.ref('survey.survey_user_input_view_form').id
         tree_form_id = self.env.ref('survey.survey_user_input_view_tree').id
         answer = []
-        crm = self.project_id.sale_order_id.opportunity_id
+        crm = self.project_id.crm_id
         if crm:
             answer = self.env['survey.user_input'].search([('crm_id', '=', crm.id)])
             action = {
@@ -79,7 +80,7 @@ class Task(models.Model):
                 'res_model': 'survey.user_input',
             }
             if len(answer) == 1:
-                action.update({'views': [(view_form_id, 'form')], 'res_id': answer[0]})
+                action.update({'views': [(view_form_id, 'form')], 'res_id': answer[0].id})
             else:
                 action['views'] = [(tree_form_id, 'tree'), (view_form_id, 'form')]
             return action

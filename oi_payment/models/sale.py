@@ -13,7 +13,7 @@ class SaleOrder(models.Model):
 
     payment_detail_ids = fields.One2many('payment.details', 'sale_order_id',"Payment Details")
     crm_stage_id = fields.Many2one('crm.stage', "CRM Stage")
-    reserved = fields.Boolean("Reserved")
+    reserved = fields.Boolean("Reserved", copy=False)
     crm_partner_id = fields.Many2one('res.partner', "CRM Partner")
             
     @api.model
@@ -85,6 +85,10 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
         self.reserved =True
+        if self.opportunity_id:
+            if self.opportunity_id.project_id:
+                self.project_id = self.opportunity_id.project_id.id
+                self.project_ids = [(6,0, [self.project_id.id])]
         return res
         
     def unreserve_delivery(self):

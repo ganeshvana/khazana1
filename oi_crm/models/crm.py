@@ -235,7 +235,8 @@ class Lead(models.Model):
                 'partner_id': self.partner_id.id,
                 'active': True,
                 'company_id': self.company_id.id,
-                'template': False
+                'template': False,
+                'crm_id': self.id
                 }
             if projecttemp:
                 values['name'] = self.partner_id.name
