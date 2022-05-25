@@ -242,21 +242,22 @@ class Lead(models.Model):
             action['views'] = [(tree_form_id, 'tree'), (view_form_id, 'form')]
         return action
     
-    def redirect_to_website(self):
-        website = self.env['website'].search([])
-        if website:
-            for rec in website:
-                rec.sale_order_id = False
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        record_url = base_url + "/shop" 
-        return {
-            'name': 'Goto Website',
-            'type': 'ir.actions.act_url',
-            'target': 'new',
-            'context': self._context,
-            'url': record_url,
-        }     
-    
+    # def redirect_to_website(self):
+    #     website = self.env['website'].search([])
+    #     if website:
+    #         for rec in website:
+    #             rec.sale_order_id = False
+    #     base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+    #     record_url = base_url + "/shop" 
+    #     return {
+    #         'name': 'Goto Website',
+    #         'type': 'ir.actions.act_url',
+    #         'target': 'new',
+    #         'context': self._context,
+    #         'url': record_url,
+    #     }     
+    #
+
 class Partner(models.Model):
     _inherit = 'res.partner'
     

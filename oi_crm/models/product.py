@@ -17,7 +17,7 @@ class Variant(models.Model):
     #             product.combination_indices = product.product_template_attribute_value_ids._ids2str()
                 
     container_no = fields.Char("Container")                
-    l10n_in_hsn_code = fields.Char("HSN/SAC Code")
+    # l10n_in_hsn_code = fields.Char("HSN/SAC Code")
     
     
     
@@ -42,21 +42,21 @@ class Product(models.Model):
     po_units = fields.Float("PO in web")
     
     # @api.depends('qty_available')
-    def check_stock(self):
-        products = self.env['product.template'].search([])
-        if products:
-            for line in products:
-                if line.website_id:
-                    if line.website_id.khazana == True:
-                        if line.detailed_type == 'product' and not line.intransit:
-                            if line.qty_available == 0.0:
-                                line.active = False
-                    if line.website_id.khazana == False:
-                        if line.detailed_type == 'product' and not line.intransit:
-                            if line.qty_available == 0.0:
-                                if not line.intransit:
-                                    line.allow_out_of_stock_order = True
-                                    line.out_of_stock_message = ''
+    # def check_stock(self):
+    #     products = self.env['product.template'].search([])
+    #     if products:
+    #         for line in products:
+    #             if line.website_id:
+    #                 if line.website_id.khazana == True:
+    #                     if line.detailed_type == 'product' and not line.intransit:
+    #                         if line.qty_available == 0.0:
+    #                             line.active = False
+    #                 if line.website_id.khazana == False:
+    #                     if line.detailed_type == 'product' and not line.intransit:
+    #                         if line.qty_available == 0.0:
+    #                             if not line.intransit:
+    #                                 line.allow_out_of_stock_order = True
+    #                                 line.out_of_stock_message = ''
         # for rec in self:
         #     if rec.website_id.khazana == True:
         #         if rec.qty_available <= 0.0:
@@ -127,7 +127,9 @@ class Picking(models.Model):
         ('nncd', 'Estimated time of Despatch'),
         ('eta', 'Estimated time of Arrival'),
         ], string="Import Stages", default='shipment')
-    eta = fields.Date("ETA")
+    eta = fields.Date("Estimated time of Arrival")
+    etd = fields.Date("Estimated time of Delivery")
+    rfd = fields.Boolean("Ready for Despatch")
     container = fields.Char("Container")
     
     def button_validate(self):
@@ -138,19 +140,31 @@ class Picking(models.Model):
                     for pline in rec.move_ids_without_package:
                         if not pline.product_id.l10n_in_hsn_code:
                             raise UserError(_("Update HSN Code in %s", pline.product_id.name))
-                        if pline.product_id == True:
-                            if pline.product_id.qty_available > 0.0:
-                                pline.product_id.intransit = False
-                                pline.product_id.product_tmpl_id.intransit = False
-                                pline.product_id.product_tmpl_id.allow_out_of_stock_order = False
-                                pline.product_id.out_of_stock_message = ''
-                                pline.po_units = 0.0
-                                pline.sold_units = 0.0
+                        # if pline.product_id == True:
+                        #     if pline.product_id.qty_available > 0.0:
+                        #         pline.product_id.intransit = False
+                        #         pline.product_id.product_tmpl_id.intransit = False
+                        #         pline.product_id.product_tmpl_id.allow_out_of_stock_order = False
+                        #         pline.product_id.out_of_stock_message = ''
+                        #         pline.po_units = 0.0
+                        #         pline.sold_units = 0.0
                 mail_template_id = self.env.ref('oi_crm.mail_template_send_receipt_validate')
                 self.env['mail.template'].browse(mail_template_id.id).send_mail(rec.id, force_send=True)
             return res   
     
-    
+    def open_package(self):
+        view = self.env.ref('oi_crm.view_stock_picking_package_print')
+        self = self.with_context(default_partner_id = self.partner_id.id,default_picking_id = self.id)        
+        return {
+            'name': 'Package Print',
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking.print',
+            'views': [(view.id, 'form')],
+            'target': 'new',
+            'context': self._context,
+        }
     
     
     

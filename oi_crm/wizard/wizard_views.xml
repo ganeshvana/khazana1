@@ -43,7 +43,109 @@
             <field name="binding_view_types">list</field>
         </record>
         
+        <record id="paperformat_tag" model="report.paperformat">
+            <field name="name">Tag-A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">22</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">25</field>
+            <field name="dpi">90</field>
+        </record>
         
+        <template id="report_delivery_tag_template2">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t>
+                    	<t t-set="count" t-value="0" />
+						<t t-foreach="range(picking.count)" t-as="sect">	
+						<t t-set="count" t-value="count+1" />						
+							<t>
+								<table style="border: 1px solid black;page-break-inside: avoid !important;" width="100%">
+									<tr width="100%">
+										<td width="100%" style="border: 1px solid black;" colspan="2"><strong>
+											<center>
+												<span t-esc="picking.picking_id.company_id.name" />
+												
+											</center>
+										</strong></td>
+									</tr>
+									<tr width="100%">
+										<td width="50%" style="border: 1px solid black;"> Packet</td>
+										<td width="50%" style="border: 1px solid black;"> <span t-esc="count"/> / <span t-esc="picking.count"/></td>
+									</tr>
+									<tr width="100%">
+										<td width="50%" style="border: 1px solid black;"> Room</td>
+										<td width="50%" style="border: 1px solid black;"> </td>
+									</tr>
+									<tr width="100%">
+										<td width="50%" style="border: 1px solid black;"> Description</td>
+										<td width="50%" style="border: 1px solid black;"> <br/><br/><br/></td>
+									</tr>
+								</table>
+								<br/>
+							</t>
+						</t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+		<template id="report_delivery_tag2">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="picking">
+					<t t-call="oi_crm.report_delivery_tag_template2"
+						t-lang="picking.partner_id.lang" />
+				</t>
+			</t>
+		</template>
+		
+		<record id="action_report_picking_tag2" model="ir.actions.report">
+	       <field name="name">Package</field>
+	       <field name="model">stock.picking.print</field>
+	       <field name="report_type">qweb-pdf</field>
+	       <field name="report_name">oi_crm.report_delivery_tag2</field>
+	       <field name="report_file">oi_crm.report_delivery_tag2</field>
+	       <field name="print_report_name">'Package'</field>
+	       <field name="binding_model_id" ref="oi_crm.model_stock_picking_print"/>
+	       <field name="paperformat_id" ref="oi_crm.paperformat_tag"/>
+	       <field name="binding_type">report</field>
+	   </record>
+        
+        
+        <record id="view_stock_picking_package_print" model="ir.ui.view">
+            <field name="name">stock.picking.print</field>
+            <field name="model">stock.picking.print</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                	<group>
+                		<group>
+                			<field name="picking_id"/>
+                		</group>
+                		<group></group>
+                	</group>
+                	<group>
+                		<group>
+                			<field name="count"/>
+                		</group>
+                		<group>
+                		</group>
+                	</group>
+                    
+                    <footer>
+                        <button name="%(oi_crm.action_report_picking_tag2)d" string="Print" type="action" groups="base.group_user" data-hotkey="o"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record> 
      
             
     </data>

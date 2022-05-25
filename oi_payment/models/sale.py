@@ -54,16 +54,16 @@ class SaleOrder(models.Model):
             # res.partner_id = res.opportunity_id.partner_id.id
         return result
     
-    def open_cart_detail(self):
-        self.website_id.sale_order_id = self.id
-        self.action_draft()
-        baseurl = self.env.company.get_base_url() + '/shop/cart?access_token=' + self.access_token
-        return {
-            'type': 'ir.actions.act_url',
-            'target': 'self',
-            'url': baseurl,
-            'target': 'new',
-        }
+    # def open_cart_detail(self):
+    #     self.website_id.sale_order_id = self.id
+    #     self.action_draft()
+    #     baseurl = self.env.company.get_base_url() + '/shop/cart?access_token=' + self.access_token
+    #     return {
+    #         'type': 'ir.actions.act_url',
+    #         'target': 'self',
+    #         'url': baseurl,
+    #         'target': 'new',
+    #     }
         
     
     
